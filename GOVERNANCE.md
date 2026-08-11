@@ -16,7 +16,7 @@ The dependency direction is:
 
 `Freelancer Growth OS → GrowthOS Engineering`
 
-GrowthOS Engineering remains authoritative for shared engineering governance. This repository remains authoritative for Freelancer Growth OS product-specific requirements, architecture, implementation, workflow, versioning, and releases.
+GrowthOS Engineering remains authoritative for shared engineering governance. This repository remains authoritative for Freelancer Growth OS product-specific requirements, architecture, implementation, workflow, versioning, templates, roles, prompts, and releases.
 
 ## Baseline Pinning Rules
 
@@ -50,23 +50,38 @@ Technical architecture is defined by:
 
 Architecture documents define approved boundaries and technical decisions. They do not themselves prove implementation, deployment, or release.
 
-## Product Workflow Authority
+## Product Workflow and Versioning Authority
 
-[WORKFLOW.md](WORKFLOW.md) defines the product-specific engineering lifecycle and required implementation, validation, review, approval, release-preparation, release-execution, maintenance, and stop-condition gates.
+[WORKFLOW.md](WORKFLOW.md) defines the controlled product lifecycle. [VERSIONING.md](VERSIONING.md), [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md), [RELEASE_PROCESS.md](RELEASE_PROCESS.md), and [CHANGELOG.md](CHANGELOG.md) govern compatibility, migrations, versions, release candidates, release execution, and change history.
 
-Applicable workflow gates must not be silently skipped.
+Validation is evidence, not approval. Merge, tag creation, release publication, artifact publication, and deployment remain separate protected actions unless explicit authorization bundles them.
 
-Validation is evidence, not approval.
+## Product Template Authority
 
-## Product Versioning Authority
+[TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md) defines reusable product templates for capability/module specifications, evidence, freelancer context, positioning, opportunities, proposals, pricing, validation, connected context, approvals, execution results, prompt changes, and release candidates.
 
-[VERSIONING.md](VERSIONING.md) defines semantic versioning, compatibility classes, artifact/prompt/contract versioning, deprecation, retirement, release-candidate, and tag rules.
+Templates standardize information and handoffs. A filled template does not itself prove implementation, approval, execution, or release.
 
-[COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md) defines compatibility and migration rules for contracts, data, prompts, provider/model changes, CLI/API behavior, integrations, configuration, approval states, and rollback/recovery.
+## Product Role Authority
 
-[RELEASE_PROCESS.md](RELEASE_PROCESS.md) defines controlled release preparation, exact release-candidate verification, human release approval, release execution, post-release verification, rollback, withdrawal, and security-release behavior.
+[ROLE_LIBRARY.md](ROLE_LIBRARY.md) defines reusable responsibility and authority boundaries for product AI/human roles.
 
-[CHANGELOG.md](CHANGELOG.md) records notable unreleased and released product changes without itself establishing release state.
+A role may describe permitted reasoning, drafting, validation, or connector-control responsibilities, but a role does not grant standing authority to:
+
+- execute consequential external actions;
+- expand connector permissions;
+- change product evidence;
+- approve its own output;
+- merge/tag/release/deploy;
+- bypass deterministic approval gates.
+
+## Product Prompt Authority
+
+[PROMPT_GOVERNANCE.md](PROMPT_GOVERNANCE.md) defines prompt hierarchy, metadata, lifecycle, versioning, compatibility, factuality, freshness, prompt-injection, structured-output, eval, privacy/security, and human-approval requirements.
+
+[PROMPT_LIBRARY.md](PROMPT_LIBRARY.md) defines governed reusable product prompt assets.
+
+Prompt instructions remain subordinate to requirements, architecture, deterministic policies, role contracts, connector permissions, and human approval. A prompt cannot grant itself authority by wording.
 
 ## Product-Specific Extensions
 
@@ -104,36 +119,36 @@ The following remain separately authorized actions unless explicit authorization
 - creating/moving tags;
 - publishing releases or artifacts;
 - deploying product releases;
+- consequential external client/account actions;
 - changing visibility/security settings;
 - destructive history rewrites;
 - modifying another repository.
 
-Merge approval does not automatically authorize tag creation, release publication, artifact publication, or deployment.
-
 ## Evidence and Factuality
 
-Do not invent product features, customers, users, revenue, integrations, metrics, deployments, approvals, release state, test results, or operational evidence.
+Do not invent product features, customers, users, revenue, integrations, metrics, deployments, approvals, release state, test results, professional evidence, or operational evidence.
 
-Distinguish verified repository facts from proposals, planned work, unverified current facts, and placeholders.
+Product prompts/roles must distinguish verified facts from inference, recommendations, unknowns, conflicts, rejected claims, and planned work.
 
 ## Security and Privacy
 
 Do not commit secrets, credentials, tokens, private keys, unnecessary personal data, or sensitive operational information.
 
-Technical implementation must preserve Phase 2C security architecture, including:
+Preserve:
 
-- read/write permission separation;
+- read/write connector separation;
 - prompt-injection boundaries;
 - explicit consequential-action approval;
-- secret isolation from domain persistence;
+- secret isolation from domain persistence and prompt context;
 - least privilege;
-- accurate execution-state reporting.
+- accurate execution-state reporting;
+- data minimization and source-specific access boundaries.
 
 ## Compatibility and Migration
 
 Released/stable behavior changes require compatibility classification and migration analysis.
 
-Breaking changes require affected-consumer analysis where knowable, migration guidance, release-note visibility, version impact, and appropriate human approval.
+This includes material changes to prompts, role authority, templates used as stable contracts, output schemas, connector semantics, approval states, and AI provider/model behavior.
 
 Published migrations/tags/history must not be rewritten to simulate a cleaner past.
 
@@ -155,11 +170,12 @@ A later stage must not be represented as complete until its required artifacts a
 Completed:
 
 - **Phase 1 — Product Governance Entry Layer**.
-- **Phase 2 — Architecture and Standards Alignment** (2A, 2B, 2C).
-- **Phase 3 — Workflow and Versioning Alignment** once the Phase 3 candidate is merged and verified on `main`.
+- **Phase 2 — Architecture and Standards Alignment**.
+- **Phase 3 — Workflow and Versioning Alignment**.
+- **Phase 4 — Templates, Roles, and Prompts Alignment** once the Phase 4 candidate is merged and verified on `main`.
 
 Next stage:
 
-- **Phase 4 — Templates, Roles, and Prompts Alignment**.
+- **Phase 5 — Existing Product Content Conformance**.
 
-Product implementation remains not started and the repository remains Unreleased. Phase 3 defines how future implementation and releases are governed; it does not constitute implementation or a product release.
+Product implementation remains not started and the repository remains Unreleased. Reusable templates, roles, and prompt definitions are governed product assets; they do not imply deployed AI agents or implemented software capabilities.

@@ -1,24 +1,22 @@
 # Freelancer Growth OS
 
 **Status:** Unreleased  
-**Maturity:** Engineering Workflow & Versioning Foundation  
+**Maturity:** Governed AI Asset Foundation  
 **Repository:** `Ajiifarouq/Freelancer-Growth-OS`
 
 ## Purpose
 
-Freelancer Growth OS is the product repository for product-specific requirements, behavior, workflows, modules, prompts, interfaces, data models, implementation choices, and product roadmap decisions associated with Freelancer Growth OS.
+Freelancer Growth OS is the product repository for product-specific requirements, behavior, workflows, modules, prompts, roles, templates, interfaces, data models, implementation choices, and roadmap decisions associated with Freelancer Growth OS.
 
-This repository does not redefine shared GrowthOS engineering governance. Shared engineering rules are adopted from the pinned GrowthOS Engineering baseline described below.
+Shared engineering governance is adopted from the pinned GrowthOS Engineering baseline; product-specific behavior and assets remain in this repository.
 
 ## Governance Dependency
-
-This repository adopts:
 
 - **Upstream repository:** `Ajiifarouq/GrowthOS-Engineering`
 - **Released baseline:** `v0.1.0`
 - **Pinned commit:** `7ee056f938e12b5a72d1ee919a27f05ec5297c69`
 
-The pinned tag and commit are the governance reference for this adoption. A floating `main` reference must not be used as the governing baseline.
+A floating upstream `main` reference must not be used as the governing baseline.
 
 ## Source of Truth
 
@@ -26,12 +24,15 @@ The pinned tag and commit are the governance reference for this adoption. A floa
 - Product requirements: [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
 - Logical architecture: [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) and [MODULE_CATALOG.md](MODULE_CATALOG.md).
 - Technical architecture: [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md) and supporting architecture documents.
-- Product engineering workflow: [WORKFLOW.md](WORKFLOW.md).
+- Engineering workflow: [WORKFLOW.md](WORKFLOW.md).
 - Versioning: [VERSIONING.md](VERSIONING.md).
 - Compatibility/migration: [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md).
 - Release process: [RELEASE_PROCESS.md](RELEASE_PROCESS.md).
-- Unreleased/release change record: [CHANGELOG.md](CHANGELOG.md).
-- Approved product-specific extensions or deviations: documented in this repository with scope, rationale, compatibility impact, and authorization.
+- Product templates: [TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md).
+- Product roles: [ROLE_LIBRARY.md](ROLE_LIBRARY.md).
+- Prompt governance: [PROMPT_GOVERNANCE.md](PROMPT_GOVERNANCE.md).
+- Product prompt assets: [PROMPT_LIBRARY.md](PROMPT_LIBRARY.md).
+- Change record: [CHANGELOG.md](CHANGELOG.md).
 
 ## Completed Foundation
 
@@ -41,11 +42,7 @@ Complete.
 
 ### Phase 2 — Architecture and Standards Alignment
 
-Complete through:
-
-- Phase 2A — Requirements Consolidation;
-- Phase 2B — Capability and Module Architecture;
-- Phase 2C — Technical Architecture.
+Complete through Phase 2A requirements, Phase 2B capability/module architecture, and Phase 2C technical architecture.
 
 The Version 1 technical blueprint remains:
 
@@ -60,28 +57,30 @@ The Version 1 technical blueprint remains:
 
 ### Phase 3 — Workflow and Versioning Alignment
 
-Complete once the Phase 3 candidate is merged and verified.
+Complete.
 
-Phase 3 establishes:
+Phase 3 established controlled engineering lifecycle, compatibility/migration rules, SemVer, prompt/contract/database versioning, release-candidate discipline, immutable release tags, release execution gates, changelog discipline, and PR/agent controls.
 
-- controlled engineering lifecycle from intake through maintenance;
-- implementation readiness and PR gates;
-- compatibility classification;
-- semantic versioning rules;
-- database, prompt, contract, CLI/API, provider/model, integration, and configuration migration rules;
-- release-candidate and immutable-tag rules;
-- controlled release preparation/execution;
-- rollback/recovery expectations;
-- changelog discipline;
-- governed PR checklist and agent operating requirements.
+### Phase 4 — Templates, Roles, and Prompts Alignment
+
+Complete once the Phase 4 candidate is merged and verified.
+
+Phase 4 establishes:
+
+- [TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md) with reusable product, evidence, workflow, validation, approval, execution, prompt-change, and release templates;
+- [ROLE_LIBRARY.md](ROLE_LIBRARY.md) with explicit AI/human responsibility and authority boundaries;
+- [PROMPT_GOVERNANCE.md](PROMPT_GOVERNANCE.md) with prompt hierarchy, metadata, versioning, factuality, freshness, prompt-injection, structured-output, eval, compatibility, and human-approval rules;
+- [PROMPT_LIBRARY.md](PROMPT_LIBRARY.md) with 15 initial governed prompt assets mapped to Growth Acquisition and assurance modules.
+
+Prompts for later `client-success` and `business-growth` capabilities remain intentionally deferred until their detailed module requirements are mature enough to avoid fabrication.
 
 ## Next Stage
 
-Phase 4 — Templates, Roles, and Prompts Alignment.
+Phase 5 — Existing Product Content Conformance.
 
-Phase 4 will define the reusable product-specific templates, roles, and prompt assets that will drive the eventual implementation and operational use of Freelancer Growth OS.
+Phase 5 will inventory and review existing product content/assets against the governance, requirements, architecture, workflow, versioning, templates, roles, prompt, security, privacy, factuality, and approval baselines.
 
-Product implementation remains **Not started**. Phase 3 governs how implementation will be performed; it is not implementation itself.
+Product implementation remains **Not started**. Phase 4 defines reusable AI assets and their governance; it does not claim deployed agents or implemented product modules.
 
 ## Foundation Documents
 
@@ -99,6 +98,10 @@ Product implementation remains **Not started**. Phase 3 governs how implementati
 - [VERSIONING.md](VERSIONING.md)
 - [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md)
 - [RELEASE_PROCESS.md](RELEASE_PROCESS.md)
+- [TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md)
+- [ROLE_LIBRARY.md](ROLE_LIBRARY.md)
+- [PROMPT_GOVERNANCE.md](PROMPT_GOVERNANCE.md)
+- [PROMPT_LIBRARY.md](PROMPT_LIBRARY.md)
 - [CHANGELOG.md](CHANGELOG.md)
 - [`docs/adr/`](docs/adr/)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
@@ -108,4 +111,4 @@ Product implementation remains **Not started**. Phase 3 governs how implementati
 
 This repository is currently **Unreleased**.
 
-Requirements, architecture, workflow, versioning, changelog entries, merged PRs, or release preparation do not imply a published product release. A release requires actual releasable implementation, validation, exact release-candidate approval, and separately authorized release execution.
+Requirements, architecture, workflow, templates, roles, prompt assets, merged PRs, or release preparation do not imply a published product release. A release requires actual releasable implementation, validation, exact release-candidate approval, and separately authorized release execution.
