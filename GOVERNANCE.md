@@ -26,6 +26,12 @@ GrowthOS Engineering remains authoritative for shared engineering governance. Th
 - Compatibility impact must be reviewed before adopting a newer GrowthOS Engineering release.
 - Historical released baselines must remain traceable.
 
+## Product Requirements Authority
+
+[PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the authoritative product-requirements baseline once merged to `main` through the governed repository workflow.
+
+Product requirements must distinguish verified requirements, approved product decisions, proposed capabilities, planned later-phase capabilities, and unresolved decisions. Requirements approval does not imply implementation or product release.
+
 ## Product-Specific Extensions
 
 This repository may extend shared governance when the extension:
@@ -90,6 +96,12 @@ A later stage must not be represented as complete until its required artifacts a
 
 ## Current Status
 
-Current stage: **Phase 1 — Product Governance Entry Layer**.
+Phase 1 — Product Governance Entry Layer is complete.
 
-No product release is implied by this governance adoption work.
+Current stage: **Phase 2 — Architecture and Standards Alignment**.
+
+Completed substage: **Phase 2A — Requirements Consolidation**. [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the active requirements input for subsequent architecture work.
+
+Next substage: **Phase 2B — Capability and Module Architecture**.
+
+No product release is implied by this governance or requirements adoption work.
