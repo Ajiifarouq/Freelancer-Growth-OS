@@ -38,6 +38,14 @@ Listing these responsibility categories does not assert that particular implemen
 
 Architecture decisions must trace back to verified requirements, approved product decisions, constraints, or explicitly unresolved decisions. The architecture must not manufacture requirements merely to justify a preferred technology.
 
+## Logical Architecture Baseline
+
+[CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) defines the stable product capabilities, logical data contracts, dependency direction, AI/human authority boundaries, knowledge/freshness responsibilities, security/privacy boundaries, and validation ownership.
+
+[MODULE_CATALOG.md](MODULE_CATALOG.md) defines the initial stable module IDs and their logical responsibilities, inputs, outputs, dependencies, non-goals, and validation expectations.
+
+These documents define logical architecture, not deployed software.
+
 ## Shared Responsibility Boundary
 
 GrowthOS Engineering owns reusable engineering governance. Freelancer Growth OS must not redefine shared governance merely to make a product implementation easier.
@@ -54,12 +62,17 @@ Product-specific extensions may be introduced only under [GOVERNANCE.md](GOVERNA
 - Architecture claims require actual product requirements or implementation evidence.
 - The staged-hybrid product form must not be used as justification to introduce multi-user SaaS complexity before requirements support it.
 - Consequential connected actions must preserve the current human-approval authority model.
+- Evidence/factuality/freshness controls remain shared foundations and do not become hidden business-decision owners.
+- Connected-source access remains a controlled boundary rather than direct unrestricted module access.
+- Downstream feedback must re-enter through explicit evidence ingestion rather than silently mutating upstream truth.
 
 ## Current Architecture Status
 
-**Status:** Product requirements established; technical architecture not yet specified.
+**Status:** Product requirements and logical capability/module architecture established; technical architecture not yet specified.
 
-Phase 2A establishes the requirements baseline, including:
+### Phase 2A — Requirements Consolidation
+
+Established:
 
 - staged-hybrid product form;
 - beginner + established freelancer audience with adaptive maturity;
@@ -72,38 +85,47 @@ Phase 2A establishes the requirements baseline, including:
 - explicit non-goals;
 - unresolved architecture decisions.
 
-No programming language, framework, database, hosting provider, API design, UI architecture, deployment topology, integration vendor, LLM provider, authentication provider, or data-retention model is selected by Phase 2A.
+### Phase 2B — Capability and Module Architecture
 
-## Phase 2B — Capability and Module Architecture
+Established:
 
-The next architecture substage should translate the approved requirements into:
+- eight stable capability boundaries;
+- seventeen initial lowercase-kebab-case module IDs;
+- shared logical data contracts;
+- dependency direction and cycle-prevention rules;
+- human-versus-AI authority boundaries;
+- evidence, factuality, consistency, and freshness controls;
+- connected-context and consequential-action boundaries;
+- validation ownership;
+- deliberate deferral of detailed Client Success and Business Growth module decomposition until requirements are sufficient.
 
-- stable capability IDs;
-- stable module IDs;
-- capability ownership;
-- module responsibilities;
-- inputs and outputs;
-- dependency direction;
-- human-approval boundaries;
-- AI boundaries;
-- knowledge/freshness dependencies;
-- validation responsibilities;
-- lifecycle status.
+No programming language, framework, database, hosting provider, API protocol, UI architecture, deployment topology, integration vendor, LLM provider, authentication provider, or data-retention model is selected by Phase 2B.
 
 ## Phase 2C — Technical Architecture Entry Criteria
 
-Before technical architecture is declared, the product should have:
+Technical architecture may now derive implementation decisions from the approved requirements and logical architecture.
 
-- a reviewed capability/module map;
-- verified major interfaces and dependencies;
-- data-flow and persistence requirements;
-- authentication/authorisation requirements where applicable;
-- security and privacy boundaries;
-- connected-service requirements where approved;
-- compatibility expectations;
-- validation criteria;
-- architecture decision records for material technical choices.
+Before declaring Phase 2C complete, the product should define and justify:
+
+- initial product/interface topology;
+- runtime component boundaries;
+- persistence requirements and data ownership;
+- authentication and authorisation requirements where applicable;
+- secure secret/credential handling;
+- technical representation of logical contracts;
+- LLM/model interaction boundaries;
+- research/freshness integration boundaries;
+- connected-service adapter boundaries where specific integrations are approved;
+- human-approval execution mechanism;
+- deployment and environment strategy;
+- observability and audit strategy;
+- accessibility approach where an application UI exists;
+- reliability and recovery expectations;
+- architecture decision records for material choices;
+- compatibility/migration implications of chosen technologies.
+
+Technical choices must be justified against requirements rather than personal preference alone.
 
 ## Out of Scope
 
-This document does not claim completed product features, deployment readiness, market adoption, customers, revenue, integrations, production infrastructure, or a selected technical stack.
+This document does not claim completed product features, deployment readiness, market adoption, customers, revenue, direct integrations, production infrastructure, or a selected technical stack.
