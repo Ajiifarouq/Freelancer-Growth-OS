@@ -28,9 +28,15 @@ GrowthOS Engineering remains authoritative for shared engineering governance. Th
 
 ## Product Requirements Authority
 
-[PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the authoritative product-requirements baseline once merged to `main` through the governed repository workflow.
+[PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the authoritative product-requirements baseline.
 
 Product requirements must distinguish verified requirements, approved product decisions, proposed capabilities, planned later-phase capabilities, and unresolved decisions. Requirements approval does not imply implementation or product release.
+
+## Product Architecture Authority
+
+[CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) and [MODULE_CATALOG.md](MODULE_CATALOG.md) define the approved logical product architecture once merged to `main` through the governed repository workflow.
+
+Logical architecture defines product responsibility boundaries, module identities, data contracts, dependencies, validation ownership, and authority boundaries. It does not itself select a technical stack or imply implementation.
 
 ## Product-Specific Extensions
 
@@ -100,8 +106,10 @@ Phase 1 — Product Governance Entry Layer is complete.
 
 Current stage: **Phase 2 — Architecture and Standards Alignment**.
 
-Completed substage: **Phase 2A — Requirements Consolidation**. [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the active requirements input for subsequent architecture work.
+Completed substage: **Phase 2A — Requirements Consolidation**.
 
-Next substage: **Phase 2B — Capability and Module Architecture**.
+Completed substage: **Phase 2B — Capability and Module Architecture**. The logical capability/module baseline is the required input for technical architecture.
 
-No product release is implied by this governance or requirements adoption work.
+Next substage: **Phase 2C — Technical Architecture**.
+
+No product release or implemented capability is implied by this governance, requirements, or logical architecture work.
