@@ -41,45 +41,49 @@ Adopted shared baseline:
 - Established [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md).
 - Established [MODULE_CATALOG.md](MODULE_CATALOG.md).
 - Defined eight stable capability boundaries.
-- Defined seventeen stable initial lowercase-kebab-case module IDs.
-- Defined logical inputs, outputs, shared data contracts, dependencies, and cycle-prevention rules.
-- Defined AI-versus-human authority boundaries.
-- Defined evidence, factuality, consistency, freshness, connected-context, and approval controls as shared architecture concerns.
-- Preserved Client Success and Business Growth as approved later-phase capabilities without inventing unsupported detailed module decomposition.
+- Defined seventeen stable initial module IDs.
+- Defined logical inputs, outputs, shared contracts, dependencies, cycle-prevention rules, validation ownership, freshness/evidence controls, and human-approval boundaries.
+- Preserved Client Success and Business Growth as later capability boundaries without unsupported module detail.
+
+### Phase 2C — Technical Architecture
+
+- Established [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md).
+- Established [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md).
+- Established [AI_RUNTIME_ARCHITECTURE.md](AI_RUNTIME_ARCHITECTURE.md).
+- Established [SECURITY_INTEGRATION_ARCHITECTURE.md](SECURITY_INTEGRATION_ARCHITECTURE.md).
+- Established [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md).
+- Recorded eight accepted architecture decision records under [`docs/adr/`](docs/adr/).
+- Selected local-first modular-monolith V1 topology.
+- Selected CPython 3.14 + `uv`, Pydantic v2, Typer, SQLite, SQLAlchemy 2.0, Alembic, pytest, Ruff, and GitHub Actions CI strategy.
+- Selected FastAPI as a later HTTP adapter rather than a V1 web requirement.
+- Defined provider-neutral LLM/research ports with OpenAI Responses as the first reference adapter.
+- Defined data ownership, versioned artifacts, audit/run records, approvals, execution records, backup/recovery, and future PostgreSQL migration path.
+- Defined prompt-injection, least-privilege, read/write separation, secret handling, and deterministic human-approval execution controls.
+- Deliberately excluded vector-database, microservice, public SaaS, cloud-vendor, remote-auth, and frontend complexity from V1 until requirements justify them.
+
+**Phase 2 — Architecture and Standards Alignment is complete** once the Phase 2C candidate is merged and verified on `main`.
 
 ## Active
 
-### Phase 2 — Architecture and Standards Alignment
-
-#### Next substage — Phase 2C: Technical Architecture
-
-Derive technical implementation architecture from the approved requirements and Phase 2B logical architecture.
-
-Phase 2C should determine and justify:
-
-- first product/interface topology;
-- runtime component boundaries;
-- persistence and data ownership;
-- authentication/authorisation where applicable;
-- secure secret handling;
-- technical contract/schema representation;
-- LLM/model interaction boundaries;
-- research/freshness integration;
-- connected-service adapters where approved;
-- human-approval execution mechanism;
-- deployment/environment strategy;
-- observability/audit architecture;
-- accessibility approach for user interfaces;
-- reliability/recovery expectations;
-- architecture decision records for material technical choices.
-
-Do not pick technologies merely because they are popular or familiar. Every material choice should trace to product requirements, logical module boundaries, security/privacy needs, operational constraints, or maintainability goals.
-
-## Proposed
-
 ### Phase 3 — Workflow and Versioning Alignment
 
-Define product lifecycle, compatibility, migration, versioning, release preparation, release execution, and maintenance rules.
+After Phase 2C merge/verification, define the product lifecycle and change-management system for implementation and releases, including:
+
+- development workflow;
+- implementation readiness gates;
+- compatibility rules for contracts/modules/data migrations;
+- versioning scheme for product/application artifacts;
+- database migration discipline;
+- prompt/module/version compatibility;
+- CI and quality gates;
+- release preparation;
+- release execution;
+- rollback/recovery expectations;
+- maintenance/deprecation rules.
+
+Phase 3 must not be confused with application implementation itself.
+
+## Proposed
 
 ### Phase 4 — Templates, Roles, and Prompts Alignment
 
@@ -87,24 +91,26 @@ Add product-specific templates, roles, and prompts that reference or extend shar
 
 ### Phase 5 — Existing Product Content Conformance
 
-Review existing product content against the adopted governance baseline. The content inventory must be assessed against whatever product assets exist when Phase 5 begins rather than assuming the repository is still empty.
+Review existing and newly introduced product content/code against the adopted governance, architecture, workflow, and standards baselines.
 
 ### Phase 6 — Integrated Adoption Audit and Product Release Readiness
 
-Audit governance adoption, architecture, standards, workflow, compatibility, security, privacy, factuality, documentation, and release readiness as an integrated system.
+Audit governance adoption, requirements, architecture, workflow, compatibility, security, privacy, factuality, documentation, implementation evidence, and release readiness as an integrated system.
 
-## Not Approved or Not Yet Established
+## Not Yet Implemented or Released
 
-- A production-ready product implementation.
-- A selected programming language, framework, database, cloud provider, authentication provider, LLM provider, vector database, or CI/CD stack.
-- A product release version.
-- Product features or implementation claims not supported by repository evidence.
+- Application/package code implementing the architecture.
+- Product features represented as working/deployed capabilities.
+- Direct marketplace/account integrations.
+- Production web/SaaS deployment.
+- Remote multi-user authentication/tenant system.
+- PostgreSQL production environment.
+- Vector database.
+- Frontend framework/UI.
 - Customers, users, revenue, adoption, or commercial metrics without evidence.
-- Production deployment or direct marketplace-integration claims without evidence.
-- Automatic adoption of future GrowthOS Engineering releases.
-- A floating upstream `main` governance dependency.
-- Autonomous consequential external actions under the current AI authority model.
-- Detailed Client Success or Business Growth module implementations before their later requirements are refined.
+- Product release version.
+- Autonomous consequential external actions under the current authority model.
+- Detailed Client Success or Business Growth module implementation before later requirements refinement.
 
 ## Roadmap Rules
 

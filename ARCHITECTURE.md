@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document defines the product architecture boundary for Freelancer Growth OS and records the current architecture maturity without inventing implementation decisions that have not yet been made.
+This document defines the product architecture authority and records the current architecture maturity without confusing architecture decisions with implemented software.
 
 ## Shared Governance Baseline
 
@@ -36,19 +36,31 @@ Listing these responsibility categories does not assert that particular implemen
 
 [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) defines the approved requirements inputs for product architecture.
 
-Architecture decisions must trace back to verified requirements, approved product decisions, constraints, or explicitly unresolved decisions. The architecture must not manufacture requirements merely to justify a preferred technology.
+Architecture decisions must trace back to verified requirements, approved product decisions, constraints, or explicitly unresolved decisions. Architecture must not manufacture requirements merely to justify a preferred technology.
 
 ## Logical Architecture Baseline
 
-[CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) defines the stable product capabilities, logical data contracts, dependency direction, AI/human authority boundaries, knowledge/freshness responsibilities, security/privacy boundaries, and validation ownership.
+[CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) defines stable product capabilities, logical data contracts, dependency direction, AI/human authority boundaries, knowledge/freshness responsibilities, security/privacy boundaries, and validation ownership.
 
 [MODULE_CATALOG.md](MODULE_CATALOG.md) defines the initial stable module IDs and their logical responsibilities, inputs, outputs, dependencies, non-goals, and validation expectations.
 
-These documents define logical architecture, not deployed software.
+## Technical Architecture Baseline
+
+[TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md) is the primary technical architecture.
+
+Supporting technical architecture:
+
+- [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md);
+- [AI_RUNTIME_ARCHITECTURE.md](AI_RUNTIME_ARCHITECTURE.md);
+- [SECURITY_INTEGRATION_ARCHITECTURE.md](SECURITY_INTEGRATION_ARCHITECTURE.md);
+- [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md);
+- accepted records under [`docs/adr/`](docs/adr/).
+
+These documents define approved technical choices and migration paths, not deployed software.
 
 ## Shared Responsibility Boundary
 
-GrowthOS Engineering owns reusable engineering governance. Freelancer Growth OS must not redefine shared governance merely to make a product implementation easier.
+GrowthOS Engineering owns reusable engineering governance. Freelancer Growth OS must not redefine shared governance merely to make product implementation easier.
 
 Product-specific extensions may be introduced only under [GOVERNANCE.md](GOVERNANCE.md).
 
@@ -57,75 +69,68 @@ Product-specific extensions may be introduced only under [GOVERNANCE.md](GOVERNA
 - Shared governance remains external and pinned to an immutable released baseline.
 - Product-specific behavior stays in this repository.
 - Protected human approval boundaries are not implicitly delegated to automation.
-- Repository and release state must remain traceable.
+- Repository and release state remain traceable.
 - Security, privacy, factuality, and compatibility requirements cannot be bypassed for implementation convenience.
-- Architecture claims require actual product requirements or implementation evidence.
-- The staged-hybrid product form must not be used as justification to introduce multi-user SaaS complexity before requirements support it.
-- Consequential connected actions must preserve the current human-approval authority model.
-- Evidence/factuality/freshness controls remain shared foundations and do not become hidden business-decision owners.
+- Architecture claims require requirements or implementation evidence.
+- The staged-hybrid product form must not be used to introduce SaaS complexity before requirements support it.
+- Consequential connected actions preserve the human-approval authority model.
+- Evidence/factuality/freshness controls remain shared foundations rather than hidden business-decision owners.
 - Connected-source access remains a controlled boundary rather than direct unrestricted module access.
-- Downstream feedback must re-enter through explicit evidence ingestion rather than silently mutating upstream truth.
+- Downstream feedback re-enters through explicit evidence ingestion rather than silently mutating upstream truth.
+- Domain/application code remains independent of provider, database, CLI, HTTP, and connector SDK implementations.
 
 ## Current Architecture Status
 
-**Status:** Product requirements and logical capability/module architecture established; technical architecture not yet specified.
+**Status:** Requirements, logical architecture, and technical architecture established. Product implementation not started.
 
 ### Phase 2A — Requirements Consolidation
 
-Established:
-
-- staged-hybrid product form;
-- beginner + established freelancer audience with adaptive maturity;
-- Full Freelancer Growth Lifecycle vision with phased implementation;
-- Growth Acquisition as the first operational capability group;
-- Connected but Human-Approved AI authority;
-- functional and non-functional requirements;
-- data categories;
-- security/privacy requirements;
-- explicit non-goals;
-- unresolved architecture decisions.
+Established product requirements, approved product decisions, user/maturity model, capability scope, functional/non-functional requirements, security/privacy requirements, non-goals, and decision register.
 
 ### Phase 2B — Capability and Module Architecture
 
+Established eight capability boundaries, seventeen initial module IDs, logical contracts, dependencies, cycle controls, validation ownership, and human/AI authority boundaries.
+
+### Phase 2C — Technical Architecture
+
 Established:
 
-- eight stable capability boundaries;
-- seventeen initial lowercase-kebab-case module IDs;
-- shared logical data contracts;
-- dependency direction and cycle-prevention rules;
-- human-versus-AI authority boundaries;
-- evidence, factuality, consistency, and freshness controls;
-- connected-context and consequential-action boundaries;
-- validation ownership;
-- deliberate deferral of detailed Client Success and Business Growth module decomposition until requirements are sufficient.
+- local-first modular-monolith V1 topology;
+- CPython 3.14 + `uv` runtime/project strategy;
+- Pydantic v2 contracts with ports/adapters;
+- Typer CLI first interface;
+- FastAPI as later HTTP adapter;
+- SQLite + SQLAlchemy 2.0 + Alembic persistence/migrations;
+- PostgreSQL migration target for justified future multi-user SaaS;
+- provider-agnostic LLM port with OpenAI Responses reference adapter;
+- no vector database for V1;
+- current-research/freshness port;
+- read/write connector separation;
+- deterministic human-approval execution state machine;
+- secret isolation and prompt-injection controls;
+- local deployment/environment strategy;
+- GitHub Actions CI strategy for implementation;
+- structured logging/audit/backup/recovery expectations;
+- architecture decision records for material choices.
 
-No programming language, framework, database, hosting provider, API protocol, UI architecture, deployment topology, integration vendor, LLM provider, authentication provider, or data-retention model is selected by Phase 2B.
+## Phase 2 Disposition
 
-## Phase 2C — Technical Architecture Entry Criteria
+Phase 2 — Architecture and Standards Alignment is complete after the Phase 2C change is merged and verified.
 
-Technical architecture may now derive implementation decisions from the approved requirements and logical architecture.
+The next governed stage is **Phase 3 — Workflow and Versioning Alignment**.
 
-Before declaring Phase 2C complete, the product should define and justify:
+## Out of Scope / Not Claimed
 
-- initial product/interface topology;
-- runtime component boundaries;
-- persistence requirements and data ownership;
-- authentication and authorisation requirements where applicable;
-- secure secret/credential handling;
-- technical representation of logical contracts;
-- LLM/model interaction boundaries;
-- research/freshness integration boundaries;
-- connected-service adapter boundaries where specific integrations are approved;
-- human-approval execution mechanism;
-- deployment and environment strategy;
-- observability and audit strategy;
-- accessibility approach where an application UI exists;
-- reliability and recovery expectations;
-- architecture decision records for material choices;
-- compatibility/migration implications of chosen technologies.
+This architecture does not claim:
 
-Technical choices must be justified against requirements rather than personal preference alone.
+- completed application code;
+- deployed product features;
+- customers/users/revenue;
+- direct Upwork/Fiverr/Terrawork or other external integrations;
+- production SaaS infrastructure;
+- a deployed web frontend;
+- remote authentication;
+- production reliability SLAs;
+- a product release.
 
-## Out of Scope
-
-This document does not claim completed product features, deployment readiness, market adoption, customers, revenue, direct integrations, production infrastructure, or a selected technical stack.
+The repository remains **Unreleased**.
