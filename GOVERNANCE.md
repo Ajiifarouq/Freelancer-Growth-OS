@@ -16,7 +16,7 @@ The dependency direction is:
 
 `Freelancer Growth OS → GrowthOS Engineering`
 
-GrowthOS Engineering remains authoritative for shared engineering governance. This repository remains authoritative for Freelancer Growth OS product-specific requirements, architecture, implementation, workflow, versioning, templates, roles, prompts, and releases.
+GrowthOS Engineering remains authoritative for shared engineering governance. This repository remains authoritative for Freelancer Growth OS product-specific requirements, architecture, implementation, workflow, versioning, templates, roles, prompts, content conformance, and releases.
 
 ## Baseline Pinning Rules
 
@@ -83,6 +83,16 @@ A role may describe permitted reasoning, drafting, validation, or connector-cont
 
 Prompt instructions remain subordinate to requirements, architecture, deterministic policies, role contracts, connector permissions, and human approval. A prompt cannot grant itself authority by wording.
 
+## Product Content Conformance Authority
+
+[PRODUCT_CONTENT_CONFORMANCE_REGISTER.md](PRODUCT_CONTENT_CONFORMANCE_REGISTER.md) records how current, historical, duplicate, adjacent, superseded, legacy, and out-of-scope product material relates to the authoritative repository system.
+
+[ADOPTION_PHASE_5_REPORT.md](ADOPTION_PHASE_5_REPORT.md) records the Phase 5 evidence and completion disposition.
+
+Historical user files, prompt drafts, release prompts, project-development prompts, external notes, and legacy artifacts are not automatically active product authority. They must be mapped through the conformance register or separately adopted through requirements/governance change control before they can override or extend active product behavior.
+
+A historical asset may remain useful evidence even when classified `SUPERSEDED`, `LEGACY`, `DUPLICATE`, or `OUT-OF-SCOPE`.
+
 ## Product-Specific Extensions
 
 This repository may extend shared governance when the extension:
@@ -128,7 +138,7 @@ The following remain separately authorized actions unless explicit authorization
 
 Do not invent product features, customers, users, revenue, integrations, metrics, deployments, approvals, release state, test results, professional evidence, or operational evidence.
 
-Product prompts/roles must distinguish verified facts from inference, recommendations, unknowns, conflicts, rejected claims, and planned work.
+Product prompts/roles must distinguish verified facts from inference, recommendations, unknowns, conflicts, rejected claims, planned work, and historical source material.
 
 ## Security and Privacy
 
@@ -149,6 +159,8 @@ Preserve:
 Released/stable behavior changes require compatibility classification and migration analysis.
 
 This includes material changes to prompts, role authority, templates used as stable contracts, output schemas, connector semantics, approval states, and AI provider/model behavior.
+
+Historical-source classification by itself does not change stable runtime behavior. Importing or activating a historical asset later may require requirements, compatibility, migration, and prompt-eval review.
 
 Published migrations/tags/history must not be rewritten to simulate a cleaner past.
 
@@ -172,10 +184,11 @@ Completed:
 - **Phase 1 — Product Governance Entry Layer**.
 - **Phase 2 — Architecture and Standards Alignment**.
 - **Phase 3 — Workflow and Versioning Alignment**.
-- **Phase 4 — Templates, Roles, and Prompts Alignment** once the Phase 4 candidate is merged and verified on `main`.
+- **Phase 4 — Templates, Roles, and Prompts Alignment**.
+- **Phase 5 — Existing Product Content Conformance**, once this Phase 5 baseline is merged and verified on `main`.
 
 Next stage:
 
-- **Phase 5 — Existing Product Content Conformance**.
+- **Phase 6 — Integrated Adoption Audit and Product Release Readiness**.
 
-Product implementation remains not started and the repository remains Unreleased. Reusable templates, roles, and prompt definitions are governed product assets; they do not imply deployed AI agents or implemented software capabilities.
+Product implementation remains not started and the repository remains Unreleased. Content conformance, reusable templates, roles, and prompt definitions do not imply deployed AI agents or implemented software capabilities.
