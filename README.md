@@ -1,7 +1,7 @@
 # Freelancer Growth OS
 
 **Status:** Unreleased  
-**Maturity:** Technical Architecture Foundation  
+**Maturity:** Engineering Workflow & Versioning Foundation  
 **Repository:** `Ajiifarouq/Freelancer-Growth-OS`
 
 ## Purpose
@@ -23,53 +23,89 @@ The pinned tag and commit are the governance reference for this adoption. A floa
 ## Source of Truth
 
 - Shared engineering governance: GrowthOS Engineering `v0.1.0` at `7ee056f938e12b5a72d1ee919a27f05ec5297c69`.
-- Freelancer Growth OS product-specific behavior and implementation: this repository.
 - Product requirements: [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
-- Capability architecture: [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md).
-- Module catalog: [MODULE_CATALOG.md](MODULE_CATALOG.md).
-- Technical architecture: [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md).
+- Logical architecture: [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) and [MODULE_CATALOG.md](MODULE_CATALOG.md).
+- Technical architecture: [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md) and supporting architecture documents.
+- Product engineering workflow: [WORKFLOW.md](WORKFLOW.md).
+- Versioning: [VERSIONING.md](VERSIONING.md).
+- Compatibility/migration: [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md).
+- Release process: [RELEASE_PROCESS.md](RELEASE_PROCESS.md).
+- Unreleased/release change record: [CHANGELOG.md](CHANGELOG.md).
 - Approved product-specific extensions or deviations: documented in this repository with scope, rationale, compatibility impact, and authorization.
 
-## Current Scope
+## Completed Foundation
 
-Phase 1 — Product Governance Entry Layer is complete.
+### Phase 1 — Product Governance Entry Layer
 
-Phase 2A — Requirements Consolidation is complete.
+Complete.
 
-Phase 2B — Capability and Module Architecture is complete.
+### Phase 2 — Architecture and Standards Alignment
 
-Phase 2C — Technical Architecture establishes the implementation blueprint for Version 1:
+Complete through:
+
+- Phase 2A — Requirements Consolidation;
+- Phase 2B — Capability and Module Architecture;
+- Phase 2C — Technical Architecture.
+
+The Version 1 technical blueprint remains:
 
 - local-first modular Python monolith;
 - CPython 3.14 + `uv`;
 - Pydantic typed contracts and ports/adapters;
 - Typer CLI first;
-- SQLite + SQLAlchemy 2.0 + Alembic persistence/migrations;
-- FastAPI as the later HTTP adapter rather than a V1 frontend requirement;
-- provider-agnostic LLM port with OpenAI Responses as the first reference adapter;
-- deterministic human-approval execution boundary;
-- explicit security, data, research/freshness, deployment, CI, observability, backup, and migration rules.
+- SQLite + SQLAlchemy + Alembic;
+- FastAPI as a later HTTP adapter;
+- provider-neutral LLM port with OpenAI Responses as the first reference adapter;
+- deterministic human-approval execution boundary.
 
-Phase 2 — Architecture and Standards Alignment is complete once this Phase 2C baseline is merged and verified. The next adoption stage is Phase 3 — Workflow and Versioning Alignment.
+### Phase 3 — Workflow and Versioning Alignment
 
-Product implementation remains **Not started**. No production deployment, customer/user adoption, direct marketplace integration, or product release is implied by the architecture.
+Complete once the Phase 3 candidate is merged and verified.
+
+Phase 3 establishes:
+
+- controlled engineering lifecycle from intake through maintenance;
+- implementation readiness and PR gates;
+- compatibility classification;
+- semantic versioning rules;
+- database, prompt, contract, CLI/API, provider/model, integration, and configuration migration rules;
+- release-candidate and immutable-tag rules;
+- controlled release preparation/execution;
+- rollback/recovery expectations;
+- changelog discipline;
+- governed PR checklist and agent operating requirements.
+
+## Next Stage
+
+Phase 4 — Templates, Roles, and Prompts Alignment.
+
+Phase 4 will define the reusable product-specific templates, roles, and prompt assets that will drive the eventual implementation and operational use of Freelancer Growth OS.
+
+Product implementation remains **Not started**. Phase 3 governs how implementation will be performed; it is not implementation itself.
 
 ## Foundation Documents
 
-- [GOVERNANCE.md](GOVERNANCE.md) — product governance and upstream adoption contract.
-- [AGENTS.md](AGENTS.md) — operating requirements for humans and automated engineering actors.
-- [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) — authoritative product requirements, approved product decisions, requirements IDs, constraints, and open-decision history.
-- [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) — stable capability boundaries, logical contracts, dependency direction, authority boundaries, and validation ownership.
-- [MODULE_CATALOG.md](MODULE_CATALOG.md) — stable initial module IDs, responsibilities, inputs, outputs, dependencies, and validation expectations.
-- [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md) — V1 runtime topology, technology decisions, interfaces, persistence, testing, CI, observability, and migration strategy.
-- [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md) — V1 persistence/data ownership and future PostgreSQL migration path.
-- [AI_RUNTIME_ARCHITECTURE.md](AI_RUNTIME_ARCHITECTURE.md) — LLM/provider, prompt, structured-output, freshness, tool, and eval boundaries.
-- [SECURITY_INTEGRATION_ARCHITECTURE.md](SECURITY_INTEGRATION_ARCHITECTURE.md) — trust zones, connector permissions, secret handling, prompt-injection controls, and approval/execution architecture.
-- [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md) — local runtime, environments, CI, logging, backups, upgrades, and future deployment gates.
-- [`docs/adr/`](docs/adr/) — accepted architecture decision records.
-- [ARCHITECTURE.md](ARCHITECTURE.md) — architecture authority and maturity summary.
-- [ROADMAP.md](ROADMAP.md) — controlled adoption and product-engineering roadmap.
+- [GOVERNANCE.md](GOVERNANCE.md)
+- [AGENTS.md](AGENTS.md)
+- [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md)
+- [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md)
+- [MODULE_CATALOG.md](MODULE_CATALOG.md)
+- [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md)
+- [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md)
+- [AI_RUNTIME_ARCHITECTURE.md](AI_RUNTIME_ARCHITECTURE.md)
+- [SECURITY_INTEGRATION_ARCHITECTURE.md](SECURITY_INTEGRATION_ARCHITECTURE.md)
+- [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md)
+- [WORKFLOW.md](WORKFLOW.md)
+- [VERSIONING.md](VERSIONING.md)
+- [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md)
+- [RELEASE_PROCESS.md](RELEASE_PROCESS.md)
+- [CHANGELOG.md](CHANGELOG.md)
+- [`docs/adr/`](docs/adr/)
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+- [ROADMAP.md](ROADMAP.md)
 
 ## Release State
 
-This repository is currently **Unreleased**. Requirements approval, architecture definition, technical selections, file existence, branch state, pull-request state, or technical planning does not imply a product release or implemented product capability.
+This repository is currently **Unreleased**.
+
+Requirements, architecture, workflow, versioning, changelog entries, merged PRs, or release preparation do not imply a published product release. A release requires actual releasable implementation, validation, exact release-candidate approval, and separately authorized release execution.

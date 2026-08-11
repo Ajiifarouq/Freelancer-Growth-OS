@@ -16,7 +16,7 @@ The dependency direction is:
 
 `Freelancer Growth OS → GrowthOS Engineering`
 
-GrowthOS Engineering remains authoritative for shared engineering governance. This repository remains authoritative for Freelancer Growth OS product-specific requirements and implementation.
+GrowthOS Engineering remains authoritative for shared engineering governance. This repository remains authoritative for Freelancer Growth OS product-specific requirements, architecture, implementation, workflow, versioning, and releases.
 
 ## Baseline Pinning Rules
 
@@ -30,7 +30,7 @@ GrowthOS Engineering remains authoritative for shared engineering governance. Th
 
 [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the authoritative product-requirements baseline.
 
-Product requirements must distinguish verified requirements, approved product decisions, proposed capabilities, planned later-phase capabilities, and unresolved decisions. Requirements approval does not imply implementation or product release.
+Requirements approval does not imply implementation or release.
 
 ## Product Architecture Authority
 
@@ -48,7 +48,25 @@ Technical architecture is defined by:
 - [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md);
 - accepted records under [`docs/adr/`](docs/adr/).
 
-Architecture documents define approved boundaries and technical decisions once merged to `main`. They do not themselves prove software implementation, deployment, or release.
+Architecture documents define approved boundaries and technical decisions. They do not themselves prove implementation, deployment, or release.
+
+## Product Workflow Authority
+
+[WORKFLOW.md](WORKFLOW.md) defines the product-specific engineering lifecycle and required implementation, validation, review, approval, release-preparation, release-execution, maintenance, and stop-condition gates.
+
+Applicable workflow gates must not be silently skipped.
+
+Validation is evidence, not approval.
+
+## Product Versioning Authority
+
+[VERSIONING.md](VERSIONING.md) defines semantic versioning, compatibility classes, artifact/prompt/contract versioning, deprecation, retirement, release-candidate, and tag rules.
+
+[COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md) defines compatibility and migration rules for contracts, data, prompts, provider/model changes, CLI/API behavior, integrations, configuration, approval states, and rollback/recovery.
+
+[RELEASE_PROCESS.md](RELEASE_PROCESS.md) defines controlled release preparation, exact release-candidate verification, human release approval, release execution, post-release verification, rollback, withdrawal, and security-release behavior.
+
+[CHANGELOG.md](CHANGELOG.md) records notable unreleased and released product changes without itself establishing release state.
 
 ## Product-Specific Extensions
 
@@ -64,42 +82,60 @@ This repository may extend shared governance when the extension:
 
 A deviation from the pinned shared baseline must document:
 
-- the upstream rule affected;
-- the reason for deviation;
-- product scope affected;
+- upstream rule affected;
+- reason;
+- product scope;
 - risk and compatibility impact;
 - compensating controls where relevant;
 - approving authority;
-- review or exit condition where relevant.
+- review/exit condition where relevant.
 
 Do not silently override shared governance.
 
 ## Protected Actions
 
-The following remain separately authorized actions:
+The following remain separately authorized actions unless explicit authorization bundles the named actions and scope:
 
-- creating or moving branches used for governed delivery;
-- committing or pushing candidate changes;
+- creating/moving branches for governed delivery;
+- committing/pushing candidate changes;
 - creating pull requests;
 - modifying the default branch;
 - merging pull requests;
-- creating or moving tags;
-- publishing releases or other artifacts;
-- changing repository visibility or security settings;
+- creating/moving tags;
+- publishing releases or artifacts;
+- deploying product releases;
+- changing visibility/security settings;
 - destructive history rewrites;
 - modifying another repository.
 
-Authorization for one protected action does not automatically authorize another unless the authorization explicitly bundles the named actions and scope.
+Merge approval does not automatically authorize tag creation, release publication, artifact publication, or deployment.
 
 ## Evidence and Factuality
 
-Do not invent product features, customers, users, revenue, integrations, metrics, deployments, approvals, release state, test results, or operational evidence. Distinguish verified repository facts from proposals and placeholders.
+Do not invent product features, customers, users, revenue, integrations, metrics, deployments, approvals, release state, test results, or operational evidence.
+
+Distinguish verified repository facts from proposals, planned work, unverified current facts, and placeholders.
 
 ## Security and Privacy
 
-Do not commit secrets, credentials, tokens, private keys, unnecessary personal data, or sensitive operational information. Security and privacy controls from the pinned GrowthOS Engineering baseline remain applicable.
+Do not commit secrets, credentials, tokens, private keys, unnecessary personal data, or sensitive operational information.
 
-Technical implementation must preserve the Phase 2C security architecture, including read/write permission separation, prompt-injection boundaries, explicit consequential-action approval, and secret isolation from domain persistence.
+Technical implementation must preserve Phase 2C security architecture, including:
+
+- read/write permission separation;
+- prompt-injection boundaries;
+- explicit consequential-action approval;
+- secret isolation from domain persistence;
+- least privilege;
+- accurate execution-state reporting.
+
+## Compatibility and Migration
+
+Released/stable behavior changes require compatibility classification and migration analysis.
+
+Breaking changes require affected-consumer analysis where knowable, migration guidance, release-note visibility, version impact, and appropriate human approval.
+
+Published migrations/tags/history must not be rewritten to simulate a cleaner past.
 
 ## Adoption Lifecycle
 
@@ -116,16 +152,14 @@ A later stage must not be represented as complete until its required artifacts a
 
 ## Current Status
 
-Phase 1 — Product Governance Entry Layer is complete.
+Completed:
 
-Phase 2 — Architecture and Standards Alignment is complete after its Phase 2A, 2B, and 2C baselines are merged and verified.
+- **Phase 1 — Product Governance Entry Layer**.
+- **Phase 2 — Architecture and Standards Alignment** (2A, 2B, 2C).
+- **Phase 3 — Workflow and Versioning Alignment** once the Phase 3 candidate is merged and verified on `main`.
 
-Completed substages:
+Next stage:
 
-- **Phase 2A — Requirements Consolidation**.
-- **Phase 2B — Capability and Module Architecture**.
-- **Phase 2C — Technical Architecture**.
+- **Phase 4 — Templates, Roles, and Prompts Alignment**.
 
-Next stage: **Phase 3 — Workflow and Versioning Alignment**.
-
-Product implementation remains not started and the repository remains Unreleased. No product release or implemented capability is implied by the governance or architecture baselines.
+Product implementation remains not started and the repository remains Unreleased. Phase 3 defines how future implementation and releases are governed; it does not constitute implementation or a product release.
