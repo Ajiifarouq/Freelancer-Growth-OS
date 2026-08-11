@@ -100,6 +100,8 @@ Phase 1 — Product Governance Entry Layer is complete.
 
 Current stage: **Phase 2 — Architecture and Standards Alignment**.
 
-Current substage: **Phase 2A — Requirements Consolidation**. The approved product requirements baseline defines the inputs for Phase 2B capability/module architecture and later Phase 2C technical architecture.
+Completed substage: **Phase 2A — Requirements Consolidation**. [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) is the active requirements input for subsequent architecture work.
+
+Next substage: **Phase 2B — Capability and Module Architecture**.
 
 No product release is implied by this governance or requirements adoption work.
