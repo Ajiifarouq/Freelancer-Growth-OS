@@ -36,29 +36,44 @@ Adopted shared baseline:
 - Established [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
 - Defined product vision, target users, maturity model, problems, capability scope, user journeys, inputs, outputs, platform requirements, data categories, security/privacy requirements, AI requirements, freshness rules, functional requirements, non-functional requirements, constraints, non-goals, open decisions, and evidence traceability.
 
+### Phase 2B — Capability and Module Architecture
+
+- Established [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md).
+- Established [MODULE_CATALOG.md](MODULE_CATALOG.md).
+- Defined eight stable capability boundaries.
+- Defined seventeen stable initial lowercase-kebab-case module IDs.
+- Defined logical inputs, outputs, shared data contracts, dependencies, and cycle-prevention rules.
+- Defined AI-versus-human authority boundaries.
+- Defined evidence, factuality, consistency, freshness, connected-context, and approval controls as shared architecture concerns.
+- Preserved Client Success and Business Growth as approved later-phase capabilities without inventing unsupported detailed module decomposition.
+
 ## Active
 
 ### Phase 2 — Architecture and Standards Alignment
 
-Phase 2 remains active after the requirements baseline.
+#### Next substage — Phase 2C: Technical Architecture
 
-#### Next substage — Phase 2B: Capability and Module Architecture
+Derive technical implementation architecture from the approved requirements and Phase 2B logical architecture.
 
-Translate the approved requirements into:
+Phase 2C should determine and justify:
 
-- stable capability IDs;
-- stable module IDs;
-- capability ownership;
-- inputs and outputs;
-- dependency direction;
-- AI and human-approval boundaries;
-- knowledge/freshness dependencies;
-- validation responsibilities;
-- lifecycle status.
+- first product/interface topology;
+- runtime component boundaries;
+- persistence and data ownership;
+- authentication/authorisation where applicable;
+- secure secret handling;
+- technical contract/schema representation;
+- LLM/model interaction boundaries;
+- research/freshness integration;
+- connected-service adapters where approved;
+- human-approval execution mechanism;
+- deployment/environment strategy;
+- observability/audit architecture;
+- accessibility approach for user interfaces;
+- reliability/recovery expectations;
+- architecture decision records for material technical choices.
 
-#### Later substage — Phase 2C: Technical Architecture
-
-Derive technical architecture only after capability/module architecture provides sufficient requirements for decisions about application shape, persistence, authentication, databases, AI/LLM integration, connected services, deployment, observability, and security controls.
+Do not pick technologies merely because they are popular or familiar. Every material choice should trace to product requirements, logical module boundaries, security/privacy needs, operational constraints, or maintainability goals.
 
 ## Proposed
 
@@ -80,7 +95,7 @@ Audit governance adoption, architecture, standards, workflow, compatibility, sec
 
 ## Not Approved or Not Yet Established
 
-- A production-ready product architecture.
+- A production-ready product implementation.
 - A selected programming language, framework, database, cloud provider, authentication provider, LLM provider, vector database, or CI/CD stack.
 - A product release version.
 - Product features or implementation claims not supported by repository evidence.
@@ -89,6 +104,7 @@ Audit governance adoption, architecture, standards, workflow, compatibility, sec
 - Automatic adoption of future GrowthOS Engineering releases.
 - A floating upstream `main` governance dependency.
 - Autonomous consequential external actions under the current AI authority model.
+- Detailed Client Success or Business Growth module implementations before their later requirements are refined.
 
 ## Roadmap Rules
 
