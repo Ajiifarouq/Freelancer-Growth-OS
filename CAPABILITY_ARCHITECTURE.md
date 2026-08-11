@@ -8,7 +8,7 @@
 
 ## Purpose
 
-This document translates the approved Freelancer Growth OS product requirements into stable product capabilities, responsibility boundaries, dependency direction, shared data contracts, AI/human authority boundaries, knowledge/freshness dependencies, and validation responsibilities.
+This document translates the approved Freelancer Growth OS product requirements into stable product capabilities, responsibility boundaries, dependency direction, shared logical contracts, AI/human authority boundaries, knowledge/freshness dependencies, and validation responsibilities.
 
 It defines logical product architecture. It does not select a programming language, framework, database, LLM provider, cloud platform, authentication provider, API protocol, UI framework, or deployment topology.
 
@@ -52,8 +52,8 @@ Create an evidence-based understanding of the freelancer before high-confidence 
 
 - receive user-provided or authorised professional evidence;
 - distinguish supplied facts from assumptions and unknowns;
-- organise relevant skills, experience, qualifications, work history, goals, constraints, pricing context, target services, and target markets;
-- assess freelancer maturity as Starting, Building, Established, or Scaling;
+- organise skills, experience, qualifications, work history, goals, constraints, pricing context, target services, and target markets;
+- assess maturity as Starting, Building, Established, or Scaling;
 - identify missing information that materially affects downstream recommendations;
 - expose a consistent freelancer-context output to downstream capabilities.
 
@@ -85,13 +85,13 @@ Create an evidence-based understanding of the freelancer before high-confidence 
 
 ### Dependencies
 
-- uses `evidence-knowledge-assurance` for provenance and factuality;
+- uses `evidence-knowledge-assurance` as a validation/provenance service, not as an upstream business-decision owner;
 - may use `connected-context-action-control` for authorised reads;
 - must not depend on `positioning-branding`, `opportunity-intelligence`, or `conversion` for authoritative source facts.
 
 ### Human Authority
 
-Human approval is required before connected private sources are accessed where the relevant connector model requires user permission. Users may correct evidence and maturity inputs.
+Human permission is required before connected private sources are accessed where the connector model requires it. Users may correct evidence and maturity inputs.
 
 ### Validation
 
@@ -145,7 +145,7 @@ Convert verified freelancer intelligence into credible, differentiated professio
 ### Dependencies
 
 - requires `freelancer-intelligence`;
-- uses `evidence-knowledge-assurance` for factuality, consistency, and freshness;
+- invokes `evidence-knowledge-assurance` for factuality, consistency, and freshness validation;
 - may use `connected-context-action-control` for authorised reads;
 - feeds `opportunity-intelligence` and `conversion`.
 
@@ -202,7 +202,7 @@ Help the freelancer decide whether a freelance opportunity is worth pursuing and
 
 - requires `freelancer-intelligence`;
 - normally consumes `positioning-branding` outputs;
-- uses `evidence-knowledge-assurance`;
+- invokes `evidence-knowledge-assurance` for validation;
 - may use `connected-context-action-control` for authorised context retrieval;
 - feeds `conversion`.
 
@@ -260,7 +260,7 @@ Support credible movement from a qualified opportunity toward an appropriate cli
 
 - requires `freelancer-intelligence` and `opportunity-intelligence` for opportunity-specific work;
 - consumes `positioning-branding` outputs;
-- uses `evidence-knowledge-assurance`;
+- invokes `evidence-knowledge-assurance` for validation;
 - uses `connected-context-action-control` for consequential external execution when implemented.
 
 ### Human Authority
@@ -295,11 +295,12 @@ Provide shared factuality, provenance, uncertainty, consistency, and freshness c
 - becoming a generic knowledge management product;
 - silently deciding product scope;
 - converting inference into verified evidence;
-- storing secrets as evidence.
+- storing secrets as evidence;
+- owning positioning, opportunity-fit, pricing, negotiation, or conversion business decisions.
 
 ### Primary Inputs
 
-- evidence from `freelancer-intelligence`;
+- evidence references created during intake;
 - outputs from product capabilities requiring validation;
 - current authoritative sources where freshness verification is needed;
 - requirement/evidence references from repository governance.
@@ -315,7 +316,7 @@ Provide shared factuality, provenance, uncertainty, consistency, and freshness c
 
 ### Dependencies
 
-This is a shared foundation and must not semantically depend on downstream business recommendations. It may validate any capability output without taking ownership of that capability's business decision.
+This is a shared validation plane. It does not sit before or after the business flow as a semantic business step and must not depend on downstream recommendations as authoritative source truth.
 
 ### Human Authority
 
@@ -396,11 +397,11 @@ Approved product scope; detailed module decomposition deferred.
 
 ### Why Decomposition Is Deferred
 
-`PRODUCT_REQUIREMENTS.md` explicitly establishes this as later-phase scope but does not yet define enough user journeys, data contracts, integration requirements, or acceptance criteria to create detailed modules without guessing.
+`PRODUCT_REQUIREMENTS.md` establishes this as later-phase scope but does not yet define enough user journeys, data contracts, integration requirements, or acceptance criteria to create detailed modules without guessing.
 
 ### Dependency Direction
 
-Expected to consume verified acquisition/conversion context and produce new client evidence back through `freelancer-intelligence`/`evidence-knowledge-assurance` rather than mutating upstream positioning state directly.
+Expected to consume verified acquisition/conversion context and produce new client evidence back through explicit evidence ingestion rather than mutating upstream positioning state directly.
 
 ### Human Authority
 
@@ -430,7 +431,7 @@ These are conceptual architecture contracts, not programming-language types or d
 
 | Contract ID | Produced by | Typical consumers | Purpose |
 |---|---|---|---|
-| `evidence-bundle` | `freelancer-intelligence` / assurance modules | most capabilities | Normalised set of authorised evidence references and known/unknown boundaries |
+| `evidence-bundle` | `freelancer-intelligence` | most product capabilities / assurance | Normalised set of authorised evidence references and known/unknown boundaries |
 | `freelancer-context` | `freelancer-intelligence` | positioning, opportunity, conversion | Stable product-level view of freelancer background, goals, constraints, and evidence |
 | `maturity-assessment` | `freelancer-intelligence` | positioning, later growth capabilities | Starting/Building/Established/Scaling classification with rationale |
 | `positioning-brief` | `positioning-branding` | profile, opportunity, conversion | Evidence-supported market positioning and target-client framing |
@@ -445,7 +446,7 @@ These are conceptual architecture contracts, not programming-language types or d
 | `negotiation-plan` | `conversion` | user | Positions, questions, trade-offs, response options |
 | `conversion-next-step-plan` | `conversion` | user / approval flow | Recommended next client action |
 | `validation-report` | `evidence-knowledge-assurance` | all capabilities/user | Factuality, uncertainty, consistency, provenance, freshness findings |
-| `freshness-requirement` | assurance | research/current-source layer | Declares why current verification is materially required |
+| `freshness-requirement` | assurance plane | research/current-source layer | Declares why current verification is materially required |
 | `connected-context` | connected-context control | authorised capability | Read-only authorised source context with provenance metadata |
 | `approval-request` | product module / action control | human approval gate | Proposed consequential action plus exact scope |
 | `approval-decision-record` | action control | execution boundary/audit | Approved/rejected decision and action scope |
@@ -453,23 +454,34 @@ These are conceptual architecture contracts, not programming-language types or d
 
 ## Dependency Architecture
 
-### Primary Product Flow
+### Core Business Flow
 
-`evidence-knowledge-assurance`
-→ `freelancer-intelligence`
+`freelancer-intelligence`
 → `positioning-branding`
 → `opportunity-intelligence`
 → `conversion`
 
-### Connected Context Flow
+This is the semantic business flow. Each downstream step consumes explicit contracts from the prior step and may request reassessment rather than rewriting upstream truth.
+
+### Assurance Plane
+
+`evidence-knowledge-assurance`
+↔ validation/provenance/freshness checks
+↔ every relevant business capability
+
+The assurance plane is cross-cutting, not a semantic first or last step. It validates evidence and outputs without owning the business decisions being validated.
+
+### Connected Context Plane
 
 `connected-context-action-control`
 → authorised read context
-→ relevant product capability
+→ relevant business capability
+
+Read access is optional and integration-dependent. Business modules must still work with direct user-supplied inputs where requirements permit.
 
 ### Consequential Action Flow
 
-`product module`
+`business module`
 → `approval-request`
 → `connected-context-action-control`
 → `human approval`
@@ -481,15 +493,16 @@ These are conceptual architecture contracts, not programming-language types or d
 → `client-success`
 → `business-growth`
 
-Feedback from later phases must return as new evidence through `freelancer-intelligence` and `evidence-knowledge-assurance`. Later capabilities must not silently mutate the source evidence used to justify earlier outputs.
+Feedback from later phases must return as new evidence through explicit intake/provenance processing. Later capabilities must not silently mutate the source evidence used to justify earlier outputs.
 
 ## Cycle Prevention Rules
 
-- `conversion` must not rewrite `freelancer-intelligence` evidence directly.
-- `opportunity-intelligence` may use positioning but must not redefine the authoritative positioning without returning a recommendation for reassessment.
-- assurance modules may validate any output but must not become owners of business decisions.
-- connected-context control may transport authorised data/actions but must not decide positioning, opportunity fit, pricing, or negotiation strategy.
-- later Client Success and Business Growth capabilities may contribute new evidence but must do so through explicit evidence ingestion.
+- assurance validation edges are not semantic business-flow dependencies and must not be used to create circular business ownership;
+- `conversion` must not rewrite `freelancer-intelligence` evidence directly;
+- `opportunity-intelligence` may use positioning but must not redefine authoritative positioning without returning a reassessment request;
+- assurance modules may validate any output but must not become owners of business decisions;
+- connected-context control may transport authorised data/actions but must not decide positioning, opportunity fit, pricing, or negotiation strategy;
+- later Client Success and Business Growth capabilities may contribute new evidence only through explicit evidence ingestion/provenance handling.
 
 ## AI Authority Boundaries
 
@@ -567,9 +580,10 @@ Phase 2B is complete when this capability architecture and [MODULE_CATALOG.md](M
 - initial modules have stable lowercase-kebab-case IDs;
 - responsibilities do not overlap ambiguously;
 - inputs and outputs are defined at logical-contract level;
-- dependency direction is explicit and cycles are controlled;
+- business dependency direction is explicit and cycles are controlled;
+- assurance and connected-context planes remain cross-cutting boundaries rather than hidden business owners;
 - AI versus human authority boundaries are explicit;
-- evidence/factuality/freshness responsibilities are cross-cutting and traceable;
+- evidence/factuality/freshness responsibilities are traceable;
 - later Client Success and Business Growth boundaries are preserved without invented module detail;
 - no technical stack is selected prematurely;
 - no direct external integration is claimed without verification;
