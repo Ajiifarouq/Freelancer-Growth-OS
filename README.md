@@ -1,7 +1,7 @@
 # Freelancer Growth OS
 
 **Status:** Unreleased  
-**Maturity:** Product Governance Foundation  
+**Maturity:** Product Requirements Foundation  
 **Repository:** `Ajiifarouq/Freelancer-Growth-OS`
 
 ## Purpose
@@ -24,19 +24,25 @@ The pinned tag and commit are the governance reference for this adoption. A floa
 
 - Shared engineering governance: GrowthOS Engineering `v0.1.0` at `7ee056f938e12b5a72d1ee919a27f05ec5297c69`.
 - Freelancer Growth OS product-specific behavior and implementation: this repository.
+- Product requirements: [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
 - Approved product-specific extensions or deviations: documented in this repository with scope, rationale, compatibility impact, and authorization.
 
 ## Current Scope
 
-The current stage establishes the product-governance entry layer only. It does not claim that product features, customers, integrations, deployment architecture, commercial terms, or operational metrics already exist.
+Phase 1 — Product Governance Entry Layer is complete.
+
+Phase 2 — Architecture and Standards Alignment is active. Phase 2A establishes the authoritative product requirements baseline, including the staged-hybrid product form, adaptive freelancer maturity model, phased Freelancer Growth Lifecycle scope, and connected-but-human-approved AI authority model.
+
+Technical architecture, production deployment, direct marketplace integrations, and released product capabilities are not implied by this requirements foundation.
 
 ## Foundation Documents
 
 - [GOVERNANCE.md](GOVERNANCE.md) — product governance and upstream adoption contract.
 - [AGENTS.md](AGENTS.md) — operating requirements for humans and automated engineering actors.
+- [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md) — authoritative product requirements, approved product decisions, requirements IDs, constraints, and open decisions.
 - [ARCHITECTURE.md](ARCHITECTURE.md) — product architecture boundary and current architecture status.
-- [ROADMAP.md](ROADMAP.md) — controlled adoption and product-governance roadmap.
+- [ROADMAP.md](ROADMAP.md) — controlled adoption and product-engineering roadmap.
 
 ## Release State
 
-This repository is currently **Unreleased**. File existence, branch state, or pull-request state does not imply a product release.
+This repository is currently **Unreleased**. Requirements approval, file existence, branch state, pull-request state, or architecture planning does not imply a product release.
