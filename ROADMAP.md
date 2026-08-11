@@ -14,75 +14,71 @@ Adopted shared baseline:
 
 ## Completed
 
-### Repository and Phase 1
+### Phase 1 — Product Governance Entry Layer
 
-- Repository technical initialization.
-- Verified/pinned GrowthOS Engineering `v0.1.0` at `7ee056f938e12b5a72d1ee919a27f05ec5297c69`.
-- Phase 1 — Product Governance Entry Layer.
-- Repository identity, source-of-truth hierarchy, agent boundaries, protected actions, and adoption roadmap.
+Repository identity, source-of-truth hierarchy, agent boundaries, protected actions, and adoption roadmap established.
 
-### Phase 2A — Requirements Consolidation
+### Phase 2 — Architecture and Standards Alignment
 
-- Established [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
-- Approved product form, audience, lifecycle scope, and AI authority.
-- Defined product vision, capability scope, journeys, functional/non-functional requirements, security/privacy, non-goals, evidence, and open decisions.
+Complete through:
 
-### Phase 2B — Capability and Module Architecture
+- Phase 2A — Requirements Consolidation;
+- Phase 2B — Capability and Module Architecture;
+- Phase 2C — Technical Architecture.
 
-- Established [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md).
-- Established [MODULE_CATALOG.md](MODULE_CATALOG.md).
-- Defined eight capability boundaries, seventeen initial module IDs, logical contracts, dependency direction, validation ownership, freshness/evidence controls, and human-approval boundaries.
-
-### Phase 2C — Technical Architecture
-
-- Established technical, data, AI runtime, security/integration, deployment/operations architecture.
-- Recorded eight ADRs.
-- Selected local-first modular-monolith V1 with CPython 3.14 + `uv`, Pydantic, Typer, SQLite, SQLAlchemy, Alembic, and provider-neutral LLM architecture.
-- Preserved future FastAPI/PostgreSQL/web/SaaS migration paths without adding premature runtime complexity.
-
-**Phase 2 — Architecture and Standards Alignment: COMPLETE.**
+Requirements, capability/module architecture, local-first V1 technical architecture, data/AI/security/deployment architecture, and ADRs are established.
 
 ### Phase 3 — Workflow and Versioning Alignment
 
-- Established [WORKFLOW.md](WORKFLOW.md) for intake through maintenance.
-- Established [VERSIONING.md](VERSIONING.md) for product SemVer, artifact/contract/prompt versioning, deprecation, tags, and release candidates.
-- Established [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md) for contract, database, prompt, provider/model, CLI/API, integration, configuration, approval-state, rollback, and recovery rules.
-- Established [RELEASE_PROCESS.md](RELEASE_PROCESS.md) for release preparation, exact candidate verification, human approval, tagging/publication, post-release verification, withdrawal, and security releases.
-- Initialized [CHANGELOG.md](CHANGELOG.md) with an explicit `Unreleased` section.
-- Added `.github/PULL_REQUEST_TEMPLATE.md` to require requirements, compatibility, security/privacy, validation, and release-impact evidence on future PRs.
-- Updated [AGENTS.md](AGENTS.md) so engineering actors must follow workflow/versioning/migration/release controls.
+Complete.
 
-**Phase 3 — Workflow and Versioning Alignment: COMPLETE once merged and verified on `main`.**
+Established:
 
-## Active
+- [WORKFLOW.md](WORKFLOW.md);
+- [VERSIONING.md](VERSIONING.md);
+- [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md);
+- [RELEASE_PROCESS.md](RELEASE_PROCESS.md);
+- [CHANGELOG.md](CHANGELOG.md);
+- governed PR and agent controls.
 
 ### Phase 4 — Templates, Roles, and Prompts Alignment
 
-After Phase 3 merge/verification, define product-specific reusable assets that operationalize the approved requirements, architecture, and workflow.
+Complete once merged and verified on `main`.
 
-Expected Phase 4 scope includes:
+Established:
 
-- product document/specification templates;
-- module implementation/specification templates;
-- product roles and authority boundaries;
-- reusable system/prompts mapped to modules/capabilities;
-- prompt metadata/versioning/eval requirements;
-- user-facing prompt assets where appropriate;
-- validation/review prompts;
-- prompt-injection and factuality guardrails;
-- exact references back to requirements, modules, workflow, versioning, and human-approval boundaries.
+- [TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md) with reusable product and workflow handoff templates;
+- [ROLE_LIBRARY.md](ROLE_LIBRARY.md) with explicit responsibility/authority boundaries;
+- [PROMPT_GOVERNANCE.md](PROMPT_GOVERNANCE.md) with prompt hierarchy, metadata, versioning, factuality, freshness, injection resistance, structured output, eval, compatibility, and approval rules;
+- [PROMPT_LIBRARY.md](PROMPT_LIBRARY.md) with 15 initial governed prompt assets mapped to active Growth Acquisition and assurance modules;
+- updated agent/governance rules requiring prompt/role/template compatibility and eval discipline.
 
-Phase 4 must not silently implement application code or claim deployed AI agents.
+Detailed prompt/module assets for later `client-success` and `business-growth` remain deferred until product requirements are sufficient.
 
-## Proposed
+## Active
 
 ### Phase 5 — Existing Product Content Conformance
 
-Review existing and newly introduced product content/code against the adopted governance, requirements, architecture, workflow, versioning, security, privacy, factuality, prompt, and template baselines.
+After Phase 4 merge/verification, inventory and review all relevant existing product content/assets against the adopted baselines.
+
+Phase 5 should:
+
+- inventory repository product content and legacy/external product assets that are actually available;
+- classify each item as conforming, requiring adaptation, superseded, proposed, legacy, or out-of-scope;
+- map content to requirements, capabilities/modules, templates, roles, and prompt assets;
+- identify unsupported claims, duplicate/conflicting assets, outdated authority, missing metadata, and compatibility risks;
+- adapt content into governed structures where evidence supports it;
+- preserve provenance and historical traceability;
+- avoid inventing content merely to fill catalog gaps;
+- produce a conformance report and remediation register.
+
+Phase 5 may introduce governed content migrations, but must not claim software implementation unless actual application code exists and has been validated.
+
+## Proposed
 
 ### Phase 6 — Integrated Adoption Audit and Product Release Readiness
 
-Audit governance adoption, requirements, architecture, workflow, compatibility, prompts/roles/templates, security, privacy, factuality, implementation evidence, and release readiness as an integrated system.
+Audit governance adoption, requirements, architecture, workflow, compatibility, templates/roles/prompts, content conformance, security, privacy, factuality, implementation evidence, and release readiness as an integrated system.
 
 ## Not Yet Implemented or Released
 
@@ -101,4 +97,4 @@ Audit governance adoption, requirements, architecture, workflow, compatibility, 
 
 ## Roadmap Rules
 
-Roadmap placement does not by itself authorize implementation, release, publication, deployment, or cross-repository modification. Protected actions remain subject to the applicable authorization and verification gate.
+Roadmap placement does not by itself authorize implementation, release, publication, deployment, external action, or cross-repository modification. Protected actions remain subject to applicable authorization and verification gates.
