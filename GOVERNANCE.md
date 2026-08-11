@@ -34,9 +34,21 @@ Product requirements must distinguish verified requirements, approved product de
 
 ## Product Architecture Authority
 
-[CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) and [MODULE_CATALOG.md](MODULE_CATALOG.md) define the approved logical product architecture once merged to `main` through the governed repository workflow.
+Logical architecture is defined by:
 
-Logical architecture defines product responsibility boundaries, module identities, data contracts, dependencies, validation ownership, and authority boundaries. It does not itself select a technical stack or imply implementation.
+- [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md);
+- [MODULE_CATALOG.md](MODULE_CATALOG.md).
+
+Technical architecture is defined by:
+
+- [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md);
+- [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md);
+- [AI_RUNTIME_ARCHITECTURE.md](AI_RUNTIME_ARCHITECTURE.md);
+- [SECURITY_INTEGRATION_ARCHITECTURE.md](SECURITY_INTEGRATION_ARCHITECTURE.md);
+- [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md);
+- accepted records under [`docs/adr/`](docs/adr/).
+
+Architecture documents define approved boundaries and technical decisions once merged to `main`. They do not themselves prove software implementation, deployment, or release.
 
 ## Product-Specific Extensions
 
@@ -87,6 +99,8 @@ Do not invent product features, customers, users, revenue, integrations, metrics
 
 Do not commit secrets, credentials, tokens, private keys, unnecessary personal data, or sensitive operational information. Security and privacy controls from the pinned GrowthOS Engineering baseline remain applicable.
 
+Technical implementation must preserve the Phase 2C security architecture, including read/write permission separation, prompt-injection boundaries, explicit consequential-action approval, and secret isolation from domain persistence.
+
 ## Adoption Lifecycle
 
 The controlled adoption sequence is:
@@ -104,12 +118,14 @@ A later stage must not be represented as complete until its required artifacts a
 
 Phase 1 — Product Governance Entry Layer is complete.
 
-Current stage: **Phase 2 — Architecture and Standards Alignment**.
+Phase 2 — Architecture and Standards Alignment is complete after its Phase 2A, 2B, and 2C baselines are merged and verified.
 
-Completed substage: **Phase 2A — Requirements Consolidation**.
+Completed substages:
 
-Completed substage: **Phase 2B — Capability and Module Architecture**. The logical capability/module baseline is the required input for technical architecture.
+- **Phase 2A — Requirements Consolidation**.
+- **Phase 2B — Capability and Module Architecture**.
+- **Phase 2C — Technical Architecture**.
 
-Next substage: **Phase 2C — Technical Architecture**.
+Next stage: **Phase 3 — Workflow and Versioning Alignment**.
 
-No product release or implemented capability is implied by this governance, requirements, or logical architecture work.
+Product implementation remains not started and the repository remains Unreleased. No product release or implemented capability is implied by the governance or architecture baselines.
