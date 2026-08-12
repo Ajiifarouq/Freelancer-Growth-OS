@@ -8,6 +8,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 TEXT_SUFFIXES = {".md", ".py", ".toml", ".yml", ".yaml", ".json", ".txt"}
+EXPLICIT_TEXT_NAMES = {
+    ".gitignore",
+    ".editorconfig",
+    ".env.example",
+    "CODEOWNERS",
+}
 DENIED_TOP_LEVEL_DIRS = {
     ".fgos",
     "fgos-data",
@@ -34,12 +40,19 @@ DENIED_SUFFIXES = {
     ".sqlite3",
     ".db-wal",
     ".db-shm",
+    ".db-journal",
     ".sqlite-wal",
     ".sqlite-shm",
+    ".sqlite-journal",
+    ".sqlite3-wal",
+    ".sqlite3-shm",
+    ".sqlite3-journal",
     ".pem",
     ".p12",
     ".pfx",
     ".key",
+    ".jks",
+    ".keystore",
 }
 
 SECRET_PATTERNS = {
@@ -84,7 +97,9 @@ def check_path_safety(path: Path, errors: list[str]) -> None:
 
 
 def read_text_if_applicable(path: Path) -> str | None:
-    if path.suffix.lower() not in TEXT_SUFFIXES and path.name not in {".gitignore", ".editorconfig", "CODEOWNERS"}:
+    # Explicitly include extensionless/special configuration files such as
+    # .env.example so a tracked sample file cannot bypass secret-pattern checks.
+    if path.suffix.lower() not in TEXT_SUFFIXES and path.name not in EXPLICIT_TEXT_NAMES:
         return None
     try:
         return path.read_text(encoding="utf-8")
