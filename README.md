@@ -1,12 +1,13 @@
 # Freelancer Growth OS
 
 **Status:** Unreleased  
-**Maturity:** Governed Foundation — Ready for Implementation  
+**Maturity:** Governed Foundation — Pre-Implementation Hardening  
+**Implementation gate:** BLOCKED until hardening is reviewed, merged, verified, and applicable GitHub security settings are configured  
 **Repository:** `Ajiifarouq/Freelancer-Growth-OS`
 
 ## Purpose
 
-Freelancer Growth OS is the product repository for product-specific requirements, behavior, workflows, modules, prompts, roles, templates, interfaces, data models, implementation choices, and roadmap decisions associated with Freelancer Growth OS.
+Freelancer Growth OS is the product repository for product-specific requirements, behavior, workflows, modules, prompts, roles, templates, interfaces, data models, implementation choices, privacy/security controls, and roadmap decisions associated with Freelancer Growth OS.
 
 Shared engineering governance is adopted from the pinned GrowthOS Engineering baseline; product-specific behavior and assets remain in this repository.
 
@@ -18,12 +19,17 @@ Shared engineering governance is adopted from the pinned GrowthOS Engineering ba
 
 A floating upstream `main` reference must not be used as the governing baseline.
 
-## Source of Truth
+## Current Source of Truth
 
 - Shared engineering governance: GrowthOS Engineering `v0.1.0` at `7ee056f938e12b5a72d1ee919a27f05ec5297c69`.
 - Product requirements: [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md).
+- Current decision resolution: [DECISION_REGISTER.md](DECISION_REGISTER.md).
 - Logical architecture: [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md) and [MODULE_CATALOG.md](MODULE_CATALOG.md).
+- Canonical implementation contracts: [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md).
 - Technical architecture: [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md) and supporting architecture documents.
+- Local data lifecycle/privacy: [DATA_GOVERNANCE.md](DATA_GOVERNANCE.md).
+- Provider privacy/capability verification: [PROVIDER_DATA_POLICY.md](PROVIDER_DATA_POLICY.md).
+- Repository security target: [REPOSITORY_SECURITY_BASELINE.md](REPOSITORY_SECURITY_BASELINE.md).
 - Engineering workflow: [WORKFLOW.md](WORKFLOW.md).
 - Versioning: [VERSIONING.md](VERSIONING.md).
 - Compatibility/migration: [COMPATIBILITY_MIGRATION.md](COMPATIBILITY_MIGRATION.md).
@@ -34,7 +40,8 @@ A floating upstream `main` reference must not be used as the governing baseline.
 - Product prompt assets: [PROMPT_LIBRARY.md](PROMPT_LIBRARY.md).
 - Existing/historical content conformance: [PRODUCT_CONTENT_CONFORMANCE_REGISTER.md](PRODUCT_CONTENT_CONFORMANCE_REGISTER.md).
 - Phase 5 conformance evidence: [ADOPTION_PHASE_5_REPORT.md](ADOPTION_PHASE_5_REPORT.md).
-- Integrated adoption/release-readiness audit: [ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md).
+- Original integrated adoption/release-readiness audit: [ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md).
+- Pre-implementation corrective audit: [PRE_IMPLEMENTATION_HARDENING_REPORT.md](PRE_IMPLEMENTATION_HARDENING_REPORT.md).
 - Change record: [CHANGELOG.md](CHANGELOG.md).
 
 Historical/external prompts and workflow drafts are evidence/reference material only unless explicitly adopted into the current repository authority chain.
@@ -78,34 +85,53 @@ Historical marketplace/profile material is classified and mapped without becomin
 
 ### Phase 6 — Integrated Adoption Audit and Product Release Readiness
 
-This baseline records Phase 6 completion once reviewed, merged, and verified on `main`.
+Complete as an adoption phase.
 
-Phase 6 concludes:
+The original Phase 6 audit correctly blocked product release because implementation/validation do not exist, but late review findings exposed additional pre-implementation gaps. Those findings remain part of the evidence trail and are being addressed through the explicit hardening gate rather than hidden.
 
-- the integrated governance/adoption foundation is coherent and ready to support implementation;
-- product release readiness is blocked because implementation and required validation do not yet exist.
+## Pre-Implementation Hardening
 
-See [ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md) for the readiness matrix, release blockers, and next-stage recommendation.
+**Current status:** ACTIVE.
+
+The hardening package addresses:
+
+- repository `.env`/database/runtime-data exclusion;
+- automated repository safety CI;
+- canonical contract naming and prompt-to-contract mapping;
+- local retention/deletion/export/workspace lifecycle;
+- provider privacy/data-retention separation and current capability verification;
+- evidence-state authority and derived-artifact staleness;
+- approval payload binding, idempotency, and replay protection requirements;
+- stale Phase 2A decision chronology through a current decision register;
+- repository branch/ruleset/security settings target;
+- the four late PR #8 review findings.
+
+Real runtime user/client/business data must never be stored in the Git working tree, regardless of repository visibility.
 
 ## Next Stage
 
+After the hardening gate passes:
+
 **Implementation Phase 1 — Foundation and First End-to-End Growth Acquisition Vertical Slice.**
 
-The next work should move from governance adoption into governed software implementation. It should start with an implementation specification/readiness review and a bounded vertical slice rather than attempting the entire long-term lifecycle at once.
-
-Product implementation is still **Not started** until actual implementation changes are authorized and committed.
+Implementation must still begin through an implementation specification/readiness review and separate implementation authority. Hardening does not itself authorize product coding, provider credentials, external integrations, release, or deployment.
 
 ## Foundation Documents
 
 - [GOVERNANCE.md](GOVERNANCE.md)
 - [AGENTS.md](AGENTS.md)
 - [PRODUCT_REQUIREMENTS.md](PRODUCT_REQUIREMENTS.md)
+- [DECISION_REGISTER.md](DECISION_REGISTER.md)
 - [CAPABILITY_ARCHITECTURE.md](CAPABILITY_ARCHITECTURE.md)
 - [MODULE_CATALOG.md](MODULE_CATALOG.md)
+- [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md)
 - [TECHNICAL_ARCHITECTURE.md](TECHNICAL_ARCHITECTURE.md)
 - [DATA_ARCHITECTURE.md](DATA_ARCHITECTURE.md)
+- [DATA_GOVERNANCE.md](DATA_GOVERNANCE.md)
 - [AI_RUNTIME_ARCHITECTURE.md](AI_RUNTIME_ARCHITECTURE.md)
+- [PROVIDER_DATA_POLICY.md](PROVIDER_DATA_POLICY.md)
 - [SECURITY_INTEGRATION_ARCHITECTURE.md](SECURITY_INTEGRATION_ARCHITECTURE.md)
+- [REPOSITORY_SECURITY_BASELINE.md](REPOSITORY_SECURITY_BASELINE.md)
 - [DEPLOYMENT_OPERATIONS.md](DEPLOYMENT_OPERATIONS.md)
 - [WORKFLOW.md](WORKFLOW.md)
 - [VERSIONING.md](VERSIONING.md)
@@ -118,6 +144,7 @@ Product implementation is still **Not started** until actual implementation chan
 - [PRODUCT_CONTENT_CONFORMANCE_REGISTER.md](PRODUCT_CONTENT_CONFORMANCE_REGISTER.md)
 - [ADOPTION_PHASE_5_REPORT.md](ADOPTION_PHASE_5_REPORT.md)
 - [ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md)
+- [PRE_IMPLEMENTATION_HARDENING_REPORT.md](PRE_IMPLEMENTATION_HARDENING_REPORT.md)
 - [CHANGELOG.md](CHANGELOG.md)
 - [`docs/adr/`](docs/adr/)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
@@ -127,4 +154,4 @@ Product implementation is still **Not started** until actual implementation chan
 
 This repository is currently **Unreleased**.
 
-Requirements, architecture, workflow, templates, roles, prompt assets, conformance records, adoption completion, merged PRs, or release preparation do not imply a published product release. A release requires actual releasable implementation, validation, exact release-candidate approval, and separately authorized release execution.
+Requirements, architecture, workflow, templates, roles, prompt assets, conformance records, adoption completion, hardening work, merged PRs, or release preparation do not imply a published product release. A release requires actual releasable implementation, validation, exact release-candidate approval, and separately authorized release execution.
