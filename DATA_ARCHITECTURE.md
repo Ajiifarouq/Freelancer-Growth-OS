@@ -26,6 +26,7 @@ Persistent personal/client/business data must not be enabled until the applicabl
 - Database schemas may evolve; canonical product contracts are governed independently in `CONTRACT_REGISTRY.md`.
 - Real runtime data never lives inside the Git repository working tree.
 - Dependency changes must be able to invalidate/stale downstream artifacts deterministically.
+- Persistence mappings for canonical contracts must be lossless for normative fields; storage adapters may normalize fields but must not discard security, provenance, contradiction, freshness, or permission metadata.
 
 ## V1 Persistence Choice
 
@@ -65,13 +66,16 @@ Workspace lifecycle for local V1 is:
 
 ### `evidence_item`
 
-Represents user-provided, authorised, inferred/proposed, or verified evidence state.
+Represents user-provided, authorised, inferred/proposed, unknown, conflicting, rejected, deleted, or verified evidence state.
 
 Fields/concepts:
 
 - `id`
 - `workspace_id`
+- `contract_id` = `evidence-record`
+- `contract_version`
 - `evidence_type`
+- `subject_or_claim`
 - `source_type`
 - `source_reference`
 - `title`
@@ -79,11 +83,15 @@ Fields/concepts:
 - `content_hash` where practical
 - `sensitivity_class`
 - `evidence_state`
+- `allowed_uses_json` or equivalent lossless normalized relation
+- `contradictions_json` or equivalent lossless normalized relation
 - `captured_at`
-- `verified_at` where applicable
+- `verified_at` / `verification_time` where applicable
 - `supersedes_id` where evidence is replaced
 - `deleted_at` where applicable
 - timestamps
+
+`allowed_uses` and `contradictions` are normative `evidence-record` fields. Persistence must round-trip them without loss. A database implementation may normalize them into child tables instead of JSON, but serialization back to the canonical contract must preserve the same semantics.
 
 Authoritative evidence states follow `CONTRACT_REGISTRY.md` and `DATA_GOVERNANCE.md`.
 
@@ -191,20 +199,27 @@ Raw prompts and raw sensitive evidence must not be duplicated into telemetry by 
 
 ### `source_verification`
 
-Records a current-information check.
+Records a current-information check and must round-trip the canonical `freshness-verification-result` contract without loss.
 
 Fields/concepts:
 
 - `id`
 - `workspace_id`
-- `claim/topic`
+- `contract_id` = `freshness-verification-result`
+- `contract_version`
+- `freshness_requirement_id` / request reference
+- `claim_or_task`
 - `reason`
-- `source_type`
-- `source_reference`
+- `source_references_json` or normalized source-reference rows
+- `source_quality_classification`
 - `verified_at`
-- `result_status`
+- `verified_facts_json` or normalized fact rows
+- `conflicts_limitations_json` or normalized conflict/limitation rows
+- `result_status` / disposition (`verified`, `conflicting`, `unavailable`, `insufficient`)
 - `evidence_item_id` where captured
 - expiration/recheck hint where policy defines one
+
+A single-source schema is insufficient because a verification result may depend on multiple authoritative sources or contain conflicts. The persistence adapter must preserve all normative source, quality, fact, limitation, and request-link fields.
 
 No universal freshness TTL is assumed; volatility is domain-specific.
 
@@ -417,6 +432,8 @@ Implementation tests must cover:
 - schema migration from empty database to head;
 - rollback/recovery behavior where supported;
 - canonical artifact JSON contract validation;
+- evidence-record persistence round-trip preserving `allowed_uses` and contradictions;
+- freshness-verification persistence round-trip preserving all sources, source quality, verified facts, conflicts/limitations, and request reference;
 - approval/execution referential integrity;
 - payload-hash/idempotency replay protection;
 - no secret fields in persisted domain models;
