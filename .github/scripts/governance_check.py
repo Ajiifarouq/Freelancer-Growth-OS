@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import re
 import subprocess
 import sys
@@ -9,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 TEXT_SUFFIXES = {".md", ".py", ".toml", ".yml", ".yaml", ".json", ".txt"}
-DENIED_DIR_PARTS = {
+DENIED_TOP_LEVEL_DIRS = {
     ".fgos",
     "fgos-data",
     "local-data",
@@ -23,8 +22,11 @@ DENIED_DIR_PARTS = {
     "artifacts",
     "imports",
     "uploads",
+    "tmp",
+    "temp",
     "eval-results",
     ".eval-results",
+    "test-output",
 }
 DENIED_SUFFIXES = {
     ".db",
@@ -67,14 +69,15 @@ def fail(errors: list[str], message: str) -> None:
 
 def check_path_safety(path: Path, errors: list[str]) -> None:
     rel = path.relative_to(ROOT)
-    parts = set(rel.parts[:-1])
     name = rel.name
 
     if name == ".env" or (name.startswith(".env.") and name != ".env.example"):
         fail(errors, f"forbidden tracked environment file: {rel}")
 
-    if parts & DENIED_DIR_PARTS:
-        fail(errors, f"forbidden tracked runtime/private-data path: {rel}")
+    # Runtime/private-data names are reserved only at repository root. This avoids
+    # accidentally forbidding legitimate source packages such as src/.../data/.
+    if rel.parts and rel.parts[0] in DENIED_TOP_LEVEL_DIRS:
+        fail(errors, f"forbidden tracked repository-root runtime/private-data path: {rel}")
 
     if any(str(rel).endswith(suffix) for suffix in DENIED_SUFFIXES):
         fail(errors, f"forbidden tracked secret/database artifact: {rel}")
