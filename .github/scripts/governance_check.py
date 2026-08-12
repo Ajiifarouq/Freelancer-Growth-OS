@@ -147,6 +147,72 @@ def check_markdown_links(path: Path, text: str, errors: list[str]) -> None:
             fail(errors, f"broken repository-local Markdown link in {rel}: {target}")
 
 
+def run_self_tests() -> int:
+    failures: list[str] = []
+
+    def expect_error(label: str, action) -> None:
+        errors: list[str] = []
+        action(errors)
+        if not errors:
+            failures.append(f"self-test expected failure but passed: {label}")
+
+    def expect_clean(label: str, action) -> None:
+        errors: list[str] = []
+        action(errors)
+        if errors:
+            failures.append(f"self-test expected clean result but failed: {label}: {errors}")
+
+    expect_error(
+        ".env.example secret scan",
+        lambda errors: check_secret_patterns(
+            ROOT / ".env.example",
+            b"OPENAI_API_KEY=sk-abcdefghijklmnopqrstuvwxyz123456\n",
+            errors,
+        ),
+    )
+    expect_clean(
+        ".env.example placeholder",
+        lambda errors: check_secret_patterns(
+            ROOT / ".env.example",
+            b"OPENAI_API_KEY=\n",
+            errors,
+        ),
+    )
+    expect_error(
+        "SQLite rollback journal denied",
+        lambda errors: check_path_safety(ROOT / "fixture.sqlite-journal", errors),
+    )
+    expect_error(
+        "SQLite3 rollback journal denied",
+        lambda errors: check_path_safety(ROOT / "fixture.sqlite3-journal", errors),
+    )
+    expect_error(
+        "Java keystore denied",
+        lambda errors: check_path_safety(ROOT / "fixture.jks", errors),
+    )
+    expect_error(
+        "generic keystore denied",
+        lambda errors: check_path_safety(ROOT / "fixture.keystore", errors),
+    )
+    expect_error(
+        "repository-root runtime data denied",
+        lambda errors: check_path_safety(ROOT / "runtime-data" / "fixture.txt", errors),
+    )
+    expect_clean(
+        "nested source data directory allowed",
+        lambda errors: check_path_safety(ROOT / "src" / "freelancer_growth_os" / "data" / "models.py", errors),
+    )
+
+    if failures:
+        print("Governance self-tests FAILED:\n", file=sys.stderr)
+        for failure in failures:
+            print(f"- {failure}", file=sys.stderr)
+        return 1
+
+    print("Governance self-tests passed.")
+    return 0
+
+
 def main() -> int:
     errors: list[str] = []
     for path in tracked_files():
@@ -170,4 +236,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    if "--self-test" in sys.argv[1:]:
+        raise SystemExit(run_self_tests())
     raise SystemExit(main())
