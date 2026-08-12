@@ -16,7 +16,7 @@ Adopted shared baseline:
 
 ### Phase 1 — Product Governance Entry Layer
 
-Repository identity, source-of-truth hierarchy, agent boundaries, protected actions, and adoption roadmap established.
+Complete.
 
 ### Phase 2 — Architecture and Standards Alignment
 
@@ -57,42 +57,65 @@ Established:
 - [ADOPTION_PHASE_5_REPORT.md](ADOPTION_PHASE_5_REPORT.md);
 - `.editorconfig` for text/Markdown hygiene.
 
-Phase 5 classified historical marketplace prompts as superseded/duplicate source material, kept LinkedIn-specific material outside active scope pending explicit adoption, and separated legacy product-development prompts from runtime product authority.
+Historical marketplace prompts are classified as superseded/duplicate source material; LinkedIn-specific material remains outside active scope pending explicit adoption; legacy product-development prompts remain non-runtime history.
 
 ### Phase 6 — Integrated Adoption Audit and Product Release Readiness
 
-Complete once the Phase 6 candidate is reviewed, merged, and verified on `main`.
+Complete as an adoption phase.
 
-[ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md) audits the adopted system as one whole.
+[ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md) established that product release is blocked until implemented/validated software exists.
 
-Disposition:
+Late review findings on PR #8 exposed additional pre-implementation gaps. Those findings are handled through the explicit hardening gate below rather than rewriting the Phase 6 history.
 
-- governance/adoption foundation → **READY FOR IMPLEMENTATION**;
-- requirements/architecture/workflow/AI asset system/content conformance → **READY as governed specifications**;
-- product implementation → **NOT STARTED**;
-- product release readiness → **BLOCKED** until implemented software and required validation exist.
+## Active Gate
 
-Phase 6 found no Critical governance/adoption defect. It records five High release-readiness blockers caused by absent implementation/CI/tests-evals/data-operation proof/release-candidate evidence, one Medium deferred-requirements item, one Low formatting item, and one observation.
+### Pre-Implementation Hardening
 
-## Next Stage
+**Status:** ACTIVE / IMPLEMENTATION BLOCKED UNTIL VERIFIED.
+
+Scope:
+
+- `.gitignore` for secrets/runtime/user data;
+- CODEOWNERS;
+- automated governance/repository CI;
+- [DECISION_REGISTER.md](DECISION_REGISTER.md) to reconcile later resolution of Phase 2A open decisions;
+- [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md) to eliminate contract/output naming drift;
+- [DATA_GOVERNANCE.md](DATA_GOVERNANCE.md) for local retention, deletion, export, backup, workspace lifecycle, evidence state, and staleness;
+- [PROVIDER_DATA_POLICY.md](PROVIDER_DATA_POLICY.md) for provider minimisation/retention/capability verification;
+- [REPOSITORY_SECURITY_BASELINE.md](REPOSITORY_SECURITY_BASELINE.md) for branch/ruleset/secret/review settings;
+- corrective reconciliation of PR #8 late review findings;
+- explicit approval replay/idempotency requirements;
+- accurate readiness/status language.
+
+Exit criteria:
+
+- hardening PR formally reviewed;
+- repository governance CI passes on exact head SHA;
+- all PR #8 late review findings have evidence-backed disposition;
+- no new blocking review thread remains;
+- hardening change merged and verified on `main`;
+- applicable manual GitHub branch/ruleset/secret settings are configured and verified or explicitly excepted.
+
+## Next Stage After Hardening
 
 ### Implementation Phase 1 — Foundation and First End-to-End Growth Acquisition Vertical Slice
 
-Implementation should begin only through the normal specification/readiness workflow and with explicit implementation authority.
+Implementation still requires its own specification/readiness review and explicit implementation authorization.
 
-Recommended first scope:
+Recommended first scope after hardening:
 
 - Python 3.14 + `uv` package/dependency foundation;
-- Pydantic domain/application contracts and configuration;
-- SQLite + SQLAlchemy + Alembic persistence foundation;
+- Pydantic contracts generated/implemented against [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md);
+- configuration/runtime-data path guard;
+- SQLite + SQLAlchemy + Alembic persistence foundation governed by [DATA_GOVERNANCE.md](DATA_GOVERNANCE.md);
 - evidence intake + evidence traceability first business slice;
 - Typer CLI end-to-end workflow;
 - deterministic fake LLM adapter before provider-backed behavior;
-- OpenAI reference adapter behind the existing provider port when authorised/implemented;
-- deterministic tests and GitHub Actions CI from the start;
-- initial AI eval fixtures before expanding prompt-backed modules.
+- OpenAI reference adapter behind the provider port only after provider-data readiness review;
+- deterministic implementation CI/tests from the start;
+- initial AI eval fixtures using synthetic data only.
 
-The implementation phase must preserve the existing human-approval and external-execution boundaries.
+The implementation phase must preserve human approval, stale-artifact blocking, evidence-state authority, and external-execution boundaries.
 
 ## Not Yet Implemented or Released
 
@@ -111,4 +134,4 @@ The implementation phase must preserve the existing human-approval and external-
 
 ## Roadmap Rules
 
-Roadmap placement does not by itself authorize implementation, release, publication, deployment, external action, or cross-repository modification. Protected actions remain subject to applicable authorization and verification gates.
+Roadmap placement does not by itself authorize implementation, release, publication, deployment, external action, repository-setting changes, or cross-repository modification. Protected actions remain subject to applicable authorization and verification gates.
