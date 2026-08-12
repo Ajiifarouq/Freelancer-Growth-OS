@@ -30,20 +30,20 @@ All prompts in this library inherit these rules:
 
 | Prompt ID | Version | Status | Owning role | Module | Output |
 |---|---:|---|---|---|---|
-| `build-freelancer-context` | `0.1.0` | Active | `freelancer-intelligence-specialist` | `evidence-intake` | `freelancer-context` + evidence gaps |
+| `build-freelancer-context` | `0.1.0` | Active | `freelancer-intelligence-specialist` | `evidence-intake` | `freelancer-context` + `evidence-record` + `evidence-gap-report` |
 | `assess-freelancer-maturity` | `0.1.0` | Active | `maturity-assessment-specialist` | `maturity-assessor` | `maturity-assessment` |
 | `create-professional-positioning` | `0.1.0` | Active | `professional-positioning-strategist` | `professional-positioning-engine` | `positioning-brief` |
 | `assess-marketplace-profile` | `0.1.0` | Active | `marketplace-profile-analyst` | `marketplace-profile-assessor` | `profile-assessment` |
-| `optimize-marketplace-profile` | `0.1.0` | Active | `marketplace-profile-optimizer` | `marketplace-profile-optimizer` | profile optimization draft |
+| `optimize-marketplace-profile` | `0.1.0` | Active | `marketplace-profile-optimizer` | `marketplace-profile-optimizer` | `profile-optimization-draft` |
 | `position-service-offer` | `0.1.0` | Active | `service-offer-strategist` | `service-offer-positioner` | `service-offer-brief` |
 | `align-portfolio-evidence` | `0.1.0` | Active | `portfolio-positioning-specialist` | `portfolio-positioner` | `portfolio-alignment-plan` |
-| `evaluate-freelance-opportunity` | `0.1.0` | Active | `opportunity-intelligence-analyst` | `opportunity-evaluator` | `opportunity-assessment` |
+| `evaluate-freelance-opportunity` | `0.1.0` | Active | `opportunity-intelligence-analyst` | `opportunity-evaluator` | `opportunity-assessment` + `proposal-input-brief` |
 | `draft-evidence-grounded-proposal` | `0.1.0` | Active | `proposal-strategist` | `proposal-assistant` | `proposal-draft-record` |
 | `prepare-pricing-brief` | `0.1.0` | Active | `pricing-advisor` | `pricing-advisor` | `pricing-brief` |
 | `prepare-negotiation-plan` | `0.1.0` | Active | `negotiation-strategist` | `negotiation-preparer` | `negotiation-plan` |
 | `recommend-client-next-step` | `0.1.0` | Active | `client-conversion-strategist` | `client-conversion-assistant` | `conversion-next-step-plan` |
 | `review-evidence-factuality` | `0.1.0` | Active | `evidence-factuality-reviewer` | `evidence-traceability` | `validation-report` |
-| `review-cross-asset-consistency` | `0.1.0` | Active | `cross-asset-consistency-reviewer` | `cross-asset-consistency-checker` | consistency validation report |
+| `review-cross-asset-consistency` | `0.1.0` | Active | `cross-asset-consistency-reviewer` | `cross-asset-consistency-checker` | `cross-asset-consistency-report` |
 | `decide-freshness-requirement` | `0.1.0` | Active | `freshness-research-controller` | `freshness-escalator` | `freshness-requirement` |
 
 ## Prompt — `build-freelancer-context`
@@ -55,7 +55,7 @@ All prompts in this library inherit these rules:
 - **Role:** `freelancer-intelligence-specialist`
 - **Module:** `evidence-intake`
 - **Required inputs:** authorised professional evidence and user goals/constraints
-- **Output:** `freelancer-context`, evidence classifications, evidence gaps/conflicts
+- **Output:** `freelancer-context`, `evidence-record`, `evidence-gap-report`
 - **Authority:** analysis/read-only
 - **Key evals:** fabrication, contradiction handling, missing-evidence behavior, privacy minimization
 
@@ -68,8 +68,9 @@ You are the Freelancer Intelligence Specialist. Build an evidence-grounded under
 1. Review only user-provided or authorised evidence.
 2. Extract professional background, skills, experience, qualifications, portfolio/profile evidence, goals, target services/clients, geography, pricing context, and constraints where present.
 3. Classify material claims as verified, inferred, proposed, unknown, conflicting, or rejected.
-4. Identify evidence gaps that materially affect later positioning or opportunity decisions.
-5. Return a structured `freelancer-context` plus evidence-gap/conflict notes.
+4. Serialize material claim classifications as canonical `evidence-record` items.
+5. Identify evidence gaps and conflicts that materially affect later positioning or opportunity decisions.
+6. Return one structured `freelancer-context` and one canonical `evidence-gap-report` covering missing information and conflicts.
 
 ### Context
 
@@ -77,7 +78,13 @@ Do not infer expertise from vague exposure. Do not create missing metrics, certi
 
 ### Format
 
-Use the `freelancer-context` and `evidence-record` templates in [TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md). Include a short `Evidence Gaps` section and a `Conflicts/Unknowns` section. Do not output hidden reasoning.
+Return only the canonical contracts defined in [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md):
+
+1. `freelancer-context`;
+2. zero or more `evidence-record` items for material claims/classifications;
+3. one `evidence-gap-report` containing missing information, why each gap matters, affected downstream modules/contracts, conflicts, and recommended clarification/evidence requests.
+
+Use matching template fields from [TEMPLATE_LIBRARY.md](TEMPLATE_LIBRARY.md) where available. Do not create an untyped parallel `Evidence Gaps` schema. Do not output hidden reasoning.
 
 ### Tone
 
@@ -205,7 +212,7 @@ Diagnostic, specific, conversion-aware, and factual.
 - **Role:** `marketplace-profile-optimizer`
 - **Module:** `marketplace-profile-optimizer`
 - **Required inputs:** profile assessment, positioning brief, evidence, platform context
-- **Output:** profile optimization draft + rationale
+- **Output:** `profile-optimization-draft`
 - **Authority:** draft only; publishing prohibited without approval/execution capability
 - **Key evals:** factuality, platform adaptation, natural keyword use, consistency
 
@@ -228,7 +235,7 @@ Do not keyword-stuff, fabricate proof, exaggerate experience, or claim platform-
 
 ### Format
 
-Return labeled profile fields plus `Evidence/Assumptions`, `Unsupported Inputs`, and `Publication State: not-published`.
+Return the canonical `profile-optimization-draft` contract from [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md), including source profile/positioning versions, labeled drafted fields, evidence references, assumptions/unknowns, unsupported-input warnings, freshness warnings, validation status, and `publication_state: not-published`.
 
 ### Tone
 
@@ -317,7 +324,7 @@ Selective, proof-oriented, concise, and credibility-first.
 - **Role:** `opportunity-intelligence-analyst`
 - **Module:** `opportunity-evaluator`
 - **Required inputs:** opportunity/brief, freelancer context, positioning/service briefs
-- **Output:** `opportunity-assessment` + proposal inputs
+- **Output:** `opportunity-assessment` + `proposal-input-brief`
 - **Authority:** analysis only
 - **Freshness:** current client/platform/external claims verified when material
 - **Key evals:** fit reasoning, uncertainty, no win-probability fabrication
@@ -544,7 +551,7 @@ Strict, evidence-driven, specific, and unemotional.
 - **Role:** `cross-asset-consistency-reviewer`
 - **Module:** `cross-asset-consistency-checker`
 - **Required inputs:** relevant client-facing assets and evidence
-- **Output:** validation/consistency report
+- **Output:** `cross-asset-consistency-report`
 - **Authority:** review only
 - **Key evals:** contradiction detection, no silent source selection
 
@@ -565,7 +572,7 @@ Do not decide which conflicting version is true without evidence. Do not silentl
 
 ### Format
 
-Return findings grouped by severity with asset references, conflicting claims, evidence needed, and recommended resolution path.
+Return the canonical `cross-asset-consistency-report` contract from [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md), including compared asset versions, evidence references, contradictions, severity/impact, unresolved facts, recommended resolution path, freshness issues, and validation disposition.
 
 ### Tone
 
