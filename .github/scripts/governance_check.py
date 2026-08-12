@@ -96,26 +96,30 @@ def check_path_safety(path: Path, errors: list[str]) -> None:
         fail(errors, f"forbidden tracked secret/database artifact: {rel}")
 
 
-def read_text_if_applicable(path: Path) -> str | None:
-    # Explicitly include extensionless/special configuration files such as
-    # .env.example so a tracked sample file cannot bypass secret-pattern checks.
+def check_secret_patterns(path: Path, raw: bytes, errors: list[str]) -> None:
+    # Scan every tracked file, regardless of extension. latin-1 preserves every
+    # byte one-to-one while still exposing ASCII token/private-key markers that
+    # may be embedded in oddly named configuration files or binary containers.
+    rel = path.relative_to(ROOT)
+    scan_text = raw.decode("latin-1")
+    for label, pattern in SECRET_PATTERNS.items():
+        if pattern.search(scan_text):
+            fail(errors, f"possible {label} committed in {rel}")
+
+
+def read_text_if_applicable(path: Path, raw: bytes) -> str | None:
     if path.suffix.lower() not in TEXT_SUFFIXES and path.name not in EXPLICIT_TEXT_NAMES:
         return None
     try:
-        return path.read_text(encoding="utf-8")
+        return raw.decode("utf-8")
     except UnicodeDecodeError:
         return None
 
 
-def check_text_hygiene(path: Path, text: str, errors: list[str]) -> None:
+def check_text_hygiene(path: Path, raw: bytes, text: str, errors: list[str]) -> None:
     rel = path.relative_to(ROOT)
-    raw = path.read_bytes()
     if raw and not raw.endswith(b"\n"):
         fail(errors, f"text file does not end with newline: {rel}")
-
-    for label, pattern in SECRET_PATTERNS.items():
-        if pattern.search(text):
-            fail(errors, f"possible {label} committed in {rel}")
 
     if path.suffix.lower() == ".md":
         h1_count = sum(1 for line in text.splitlines() if re.match(r"^#\s+\S", line))
@@ -149,9 +153,11 @@ def main() -> int:
         if not path.exists() or not path.is_file():
             continue
         check_path_safety(path, errors)
-        text = read_text_if_applicable(path)
+        raw = path.read_bytes()
+        check_secret_patterns(path, raw, errors)
+        text = read_text_if_applicable(path, raw)
         if text is not None:
-            check_text_hygiene(path, text, errors)
+            check_text_hygiene(path, raw, text, errors)
 
     if errors:
         print("Repository governance checks FAILED:\n", file=sys.stderr)
