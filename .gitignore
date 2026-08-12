@@ -1,0 +1,75 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build/package artifacts
+build/
+dist/
+*.egg-info/
+
+# Local product/runtime data — never commit real user data
+.fgos/
+fgos-data/
+local-data/
+private-data/
+user-data/
+runtime-data/
+data/
+exports/
+backups/
+logs/
+artifacts/
+
+# Databases and journals
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+
+# User documents / temporary imports
+imports/
+uploads/
+tmp/
+temp/
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Test/eval outputs that may contain user content
+.eval-results/
+eval-results/
+test-output/
+
+# Local backup archives
+*.backup
+*.bak
+*.zip.enc
+*.7z.enc
