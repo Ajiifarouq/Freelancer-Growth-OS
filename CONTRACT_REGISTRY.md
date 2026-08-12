@@ -16,7 +16,9 @@ When older documents use an alias listed here, implementation must use the canon
 
 - Contract IDs are lowercase kebab-case.
 - Every persisted/serialized contract has an explicit version.
-- Every contract has one owning module/capability.
+- Every contract has exactly one canonical owner ID.
+- Runtime contract owners are stable module/capability IDs; repository-governance contracts use one stable named governance authority.
+- A contract may have multiple producers, but producer variability never changes canonical ownership.
 - Prompt output must identify a canonical contract ID.
 - Pydantic model names are implementation details, but their serialized contract ID/version must remain stable.
 - Adding optional fields may be backward-compatible; removing/renaming/reinterpreting fields requires compatibility review.
@@ -26,36 +28,38 @@ When older documents use an alias listed here, implementation must use the canon
 
 ## Canonical Contract Catalog
 
-| Contract ID | Version | Owner / producer | Primary consumers | Persistence |
-|---|---:|---|---|---|
-| `evidence-record` | `0.1.0` | `evidence-traceability` / intake | assurance, context building | persistent metadata; no secrets |
-| `evidence-bundle` | `0.1.0` | `evidence-intake` | most business modules | persistent/snapshot as needed |
-| `evidence-gap-report` | `0.1.0` | `evidence-intake` | user, maturity, positioning | derived |
-| `freelancer-context` | `0.1.0` | `evidence-intake` | positioning, opportunity, conversion | persistent/versioned |
-| `maturity-assessment` | `0.1.0` | `maturity-assessor` | positioning, user | persistent/versioned |
-| `positioning-brief` | `0.1.0` | `professional-positioning-engine` | profile, offer, opportunity, conversion | persistent/versioned |
-| `profile-assessment` | `0.1.0` | `marketplace-profile-assessor` | profile optimizer, user | persistent/versioned |
-| `profile-optimization-draft` | `0.1.0` | `marketplace-profile-optimizer` | user, future publishing flow | persistent/versioned; never publication proof |
-| `service-offer-brief` | `0.1.0` | `service-offer-positioner` | portfolio, opportunity, conversion | persistent/versioned |
-| `portfolio-alignment-plan` | `0.1.0` | `portfolio-positioner` | user, opportunity/proposal | persistent/versioned |
-| `cross-asset-consistency-report` | `0.1.0` | `cross-asset-consistency-checker` | user, assurance, affected modules | derived/versioned |
-| `opportunity-assessment` | `0.1.0` | `opportunity-evaluator` | proposal, pricing, user | persistent/versioned |
-| `proposal-input-brief` | `0.1.0` | `opportunity-evaluator` | `proposal-assistant` | derived/versioned |
-| `proposal-draft-record` | `0.1.0` | `proposal-assistant` | user, approval flow | persistent/versioned; never submission proof |
-| `pricing-brief` | `0.1.0` | `pricing-advisor` | negotiation, conversion, user | persistent/versioned |
-| `negotiation-plan` | `0.1.0` | `negotiation-preparer` | conversion, user | persistent/versioned |
-| `conversion-next-step-plan` | `0.1.0` | `client-conversion-assistant` | user, approval flow | persistent/versioned |
-| `validation-report` | `0.1.0` | assurance/validation | all modules/user | persistent when material |
-| `freshness-requirement` | `0.1.0` | `freshness-escalator` | research adapter/module | derived |
-| `freshness-verification-result` | `0.1.0` | research/freshness boundary | assurance/business modules | persistent when used as evidence |
-| `connected-context-request` | `0.1.0` | requesting module | connector boundary | audit metadata only |
-| `connected-context` | `0.1.0` | `connected-context-retriever` | authorised requesting module | minimum necessary; avoid raw bulk persistence |
-| `permission-boundary-report` | `0.1.0` | connected-context control | audit/user/module | derived/audit |
-| `approval-request` | `0.1.0` | product module/action control | human approval gate | persistent when execution exists |
-| `approval-decision-record` | `0.1.0` | human approval gate | execution/audit | persistent |
-| `execution-result` | `0.1.0` | execution adapter/action control | user/audit | persistent |
-| `prompt-change-record` | `0.1.0` | prompt governance | maintainers/release review | repository/product metadata |
-| `release-candidate-record` | `0.1.0` | release preparation | owner/release process | release metadata |
+| Contract ID | Version | Canonical owner ID | Typical producer(s) | Primary consumers | Persistence |
+|---|---:|---|---|---|---|
+| `evidence-record` | `0.1.0` | `evidence-traceability` | `evidence-traceability`, `evidence-intake` | assurance, context building | persistent metadata; no secrets |
+| `evidence-bundle` | `0.1.0` | `evidence-intake` | `evidence-intake` | most business modules | persistent/snapshot as needed |
+| `evidence-gap-report` | `0.1.0` | `evidence-intake` | `evidence-intake` | user, maturity, positioning | derived |
+| `freelancer-context` | `0.1.0` | `evidence-intake` | `evidence-intake` | positioning, opportunity, conversion | persistent/versioned |
+| `maturity-assessment` | `0.1.0` | `maturity-assessor` | `maturity-assessor` | positioning, user | persistent/versioned |
+| `positioning-brief` | `0.1.0` | `professional-positioning-engine` | `professional-positioning-engine` | profile, offer, opportunity, conversion | persistent/versioned |
+| `profile-assessment` | `0.1.0` | `marketplace-profile-assessor` | `marketplace-profile-assessor` | profile optimizer, user | persistent/versioned |
+| `profile-optimization-draft` | `0.1.0` | `marketplace-profile-optimizer` | `marketplace-profile-optimizer` | user, future publishing flow | persistent/versioned; never publication proof |
+| `service-offer-brief` | `0.1.0` | `service-offer-positioner` | `service-offer-positioner` | portfolio, opportunity, conversion | persistent/versioned |
+| `portfolio-alignment-plan` | `0.1.0` | `portfolio-positioner` | `portfolio-positioner` | user, opportunity/proposal | persistent/versioned |
+| `cross-asset-consistency-report` | `0.1.0` | `cross-asset-consistency-checker` | `cross-asset-consistency-checker` | user, assurance, affected modules | derived/versioned |
+| `opportunity-assessment` | `0.1.0` | `opportunity-evaluator` | `opportunity-evaluator` | proposal, pricing, user | persistent/versioned |
+| `proposal-input-brief` | `0.1.0` | `opportunity-evaluator` | `opportunity-evaluator` | `proposal-assistant` | derived/versioned |
+| `proposal-draft-record` | `0.1.0` | `proposal-assistant` | `proposal-assistant` | user, approval flow | persistent/versioned; never submission proof |
+| `pricing-brief` | `0.1.0` | `pricing-advisor` | `pricing-advisor` | negotiation, conversion, user | persistent/versioned |
+| `negotiation-plan` | `0.1.0` | `negotiation-preparer` | `negotiation-preparer` | conversion, user | persistent/versioned |
+| `conversion-next-step-plan` | `0.1.0` | `client-conversion-assistant` | `client-conversion-assistant` | user, approval flow | persistent/versioned |
+| `validation-report` | `0.1.0` | `evidence-traceability` | assurance validators | all modules/user | persistent when material |
+| `freshness-requirement` | `0.1.0` | `freshness-escalator` | `freshness-escalator` | research adapter/module | derived |
+| `freshness-verification-result` | `0.1.0` | `freshness-escalator` | current-research adapter + `freshness-escalator` orchestration | assurance/business modules | persistent when used as evidence |
+| `connected-context-request` | `0.1.0` | `connected-context-retriever` | authorised requesting modules | connector boundary | audit metadata only |
+| `connected-context` | `0.1.0` | `connected-context-retriever` | `connected-context-retriever` | authorised requesting module | minimum necessary; avoid raw bulk persistence |
+| `permission-boundary-report` | `0.1.0` | `connected-context-retriever` | `connected-context-retriever` | audit/user/module | derived/audit |
+| `approval-request` | `0.1.0` | `human-approval-gate` | product modules/action-control | human approval gate | persistent when execution exists |
+| `approval-decision-record` | `0.1.0` | `human-approval-gate` | `human-approval-gate` | execution/audit | persistent |
+| `execution-result` | `0.1.0` | `human-approval-gate` | execution adapter/action-control | user/audit | persistent |
+| `prompt-change-record` | `0.1.0` | `prompt-governance` | prompt governance workflow | maintainers/release review | repository/product metadata |
+| `release-candidate-record` | `0.1.0` | `release-process` | release preparation workflow | owner/release process | release metadata |
+
+`prompt-governance` and `release-process` are stable repository-governance authority IDs for non-runtime governance contracts; they are not product runtime modules.
 
 ## Canonical Alias Resolution
 
@@ -95,6 +99,8 @@ The exact Pydantic field syntax will be defined during implementation, but the f
 - `deleted_at` where applicable
 
 `SECRET` content is prohibited.
+
+Persistence must round-trip `allowed_uses` and `contradictions` without loss. Storage may normalize them, but re-serialization to `evidence-record` must preserve the same restrictions and conflict metadata.
 
 ### `evidence-bundle`
 
@@ -198,6 +204,8 @@ Minimum fields use the existing template and include:
 - expiry/recheck trigger where useful
 - disposition: `verified`, `conflicting`, `unavailable`, or `insufficient`
 
+Persistence must round-trip the request reference, all source references, source-quality classification, verified facts, and conflicts/limitations without loss.
+
 ### `connected-context`
 
 - request ID
@@ -256,23 +264,66 @@ In addition to the template:
 
 ## Evidence-State Machine
 
-The authoritative evidence-state transitions are deterministic application policy:
+The authoritative evidence-state transitions are deterministic application policy. Canonical states are:
+
+- `provided-unverified`
+- `verified`
+- `inferred`
+- `proposed`
+- `unknown`
+- `conflicting`
+- `rejected`
+- `superseded`
+- `deleted`
 
 ```text
-provided-unverified
-  ├─> verified
+unknown
+  ├─> provided-unverified when new source evidence is supplied
+  ├─> inferred
+  ├─> proposed
+  ├─> verified only through new qualifying evidence
   ├─> conflicting
   ├─> rejected
   └─> deleted
 
-inferred/proposed
+provided-unverified
+  ├─> verified
+  ├─> conflicting
+  ├─> rejected
+  ├─> superseded
+  └─> deleted
+
+inferred
+  ├─> provided-unverified when source evidence is supplied
   ├─> verified only through new qualifying evidence
+  ├─> conflicting
+  ├─> rejected
+  └─> deleted
+
+proposed
+  ├─> provided-unverified when source evidence is supplied
+  ├─> verified only through new qualifying evidence
+  ├─> conflicting
   ├─> rejected
   └─> deleted
 
 verified
   ├─> conflicting
   ├─> superseded
+  └─> deleted
+
+conflicting
+  ├─> provided-unverified when conflict is narrowed but not resolved
+  ├─> verified only through qualifying conflict-resolution evidence
+  ├─> rejected
+  ├─> superseded
+  └─> deleted
+
+rejected
+  ├─> provided-unverified only when genuinely new evidence reopens the claim
+  └─> deleted
+
+superseded
   └─> deleted
 ```
 
@@ -297,7 +348,7 @@ Consequential execution rejects `stale` or `invalid` source artifacts.
 
 | Prompt ID | Canonical output contract(s) |
 |---|---|
-| `build-freelancer-context` | `freelancer-context` + `evidence-gap-report` |
+| `build-freelancer-context` | `freelancer-context` + `evidence-record` + `evidence-gap-report` |
 | `assess-freelancer-maturity` | `maturity-assessment` |
 | `create-professional-positioning` | `positioning-brief` |
 | `assess-marketplace-profile` | `profile-assessment` |
@@ -313,7 +364,7 @@ Consequential execution rejects `stale` or `invalid` source artifacts.
 | `review-cross-asset-consistency` | `cross-asset-consistency-report` |
 | `decide-freshness-requirement` | `freshness-requirement` |
 
-This table resolves the two Phase 6 review gaps for profile optimization and cross-asset consistency.
+For `build-freelancer-context`, the prompt's material claim classifications are serialized as `evidence-record` items and its evidence-gaps/conflicts output is serialized as the canonical `evidence-gap-report`; no untyped parallel gap schema is permitted.
 
 ## Implementation Gate
 
