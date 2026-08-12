@@ -201,7 +201,7 @@ Persist only the minimum authorised fields/references needed for the active work
 
 An LLM may suggest evidence classifications, but only deterministic application policy may transition a claim into the authoritative `verified` state.
 
-Minimum evidence states:
+The canonical evidence-state enum is owned by [CONTRACT_REGISTRY.md](CONTRACT_REGISTRY.md) and consists of:
 
 - `provided-unverified`;
 - `verified`;
@@ -210,7 +210,10 @@ Minimum evidence states:
 - `unknown`;
 - `conflicting`;
 - `rejected`;
+- `superseded`;
 - `deleted`.
+
+No persistence/model layer may invent an additional evidence state or omit one of these states without a governed contract change.
 
 Verification must record provenance appropriate to the claim. Model confidence alone is never verification evidence.
 
@@ -236,6 +239,7 @@ Implementation must prove:
 - backup and restore preserve schema/provenance invariants;
 - backup files are not tracked by Git;
 - `SECRET` fields cannot enter normal persisted domain models;
+- evidence states and transitions conform to `CONTRACT_REGISTRY.md`;
 - stale artifacts cannot pass consequential-action validation.
 
 Use synthetic fixtures only.
