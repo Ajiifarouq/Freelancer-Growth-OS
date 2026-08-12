@@ -93,6 +93,12 @@ Historical user files, prompt drafts, release prompts, project-development promp
 
 A historical asset may remain useful evidence even when classified `SUPERSEDED`, `LEGACY`, `DUPLICATE`, or `OUT-OF-SCOPE`.
 
+## Integrated Adoption Audit Authority
+
+[ADOPTION_PHASE_6_REPORT.md](ADOPTION_PHASE_6_REPORT.md) records the integrated adoption and release-readiness audit.
+
+Phase 6 completion means the adopted governance/product-design foundation has been audited as a coherent whole. It does **not** mean application implementation, runtime validation, release-candidate approval, product release, publication, or deployment has occurred.
+
 ## Product-Specific Extensions
 
 This repository may extend shared governance when the extension:
@@ -166,7 +172,7 @@ Published migrations/tags/history must not be rewritten to simulate a cleaner pa
 
 ## Adoption Lifecycle
 
-The controlled adoption sequence is:
+The controlled governance-adoption sequence is:
 
 1. Product Governance Entry Layer.
 2. Architecture and Standards Alignment.
@@ -175,20 +181,21 @@ The controlled adoption sequence is:
 5. Existing Product Content Conformance.
 6. Integrated Adoption Audit and Product Release Readiness.
 
-A later stage must not be represented as complete until its required artifacts and verification exist.
+After Phase 6, normal product engineering proceeds through [WORKFLOW.md](WORKFLOW.md). Future implementation stages are product-engineering work, not additional adoption phases unless a new governance baseline is explicitly adopted.
 
 ## Current Status
 
-Completed:
+Completed once the Phase 6 candidate is merged and verified on `main`:
 
 - **Phase 1 — Product Governance Entry Layer**.
 - **Phase 2 — Architecture and Standards Alignment**.
 - **Phase 3 — Workflow and Versioning Alignment**.
 - **Phase 4 — Templates, Roles, and Prompts Alignment**.
-- **Phase 5 — Existing Product Content Conformance**, once this Phase 5 baseline is merged and verified on `main`.
-
-Next stage:
-
+- **Phase 5 — Existing Product Content Conformance**.
 - **Phase 6 — Integrated Adoption Audit and Product Release Readiness**.
 
-Product implementation remains not started and the repository remains Unreleased. Content conformance, reusable templates, roles, and prompt definitions do not imply deployed AI agents or implemented software capabilities.
+Next lifecycle stage:
+
+- **Implementation Phase 1 — Foundation and First End-to-End Growth Acquisition Vertical Slice**, subject to implementation specification/readiness review and explicit authority.
+
+Product implementation remains not started and the repository remains Unreleased. Adoption completion does not imply implemented software, deployed AI agents, marketplace integrations, test/eval success, or product release.
