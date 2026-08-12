@@ -22,24 +22,31 @@ __pycache__/
 htmlcov/
 
 # Build/package artifacts
-build/
-dist/
+/build/
+/dist/
 *.egg-info/
 
-# Local product/runtime data — never commit real user data
-.fgos/
-fgos-data/
-local-data/
-private-data/
-user-data/
-runtime-data/
-data/
-exports/
-backups/
-logs/
-artifacts/
+# Repository-root local product/runtime data — never commit real user data
+/.fgos/
+/fgos-data/
+/local-data/
+/private-data/
+/user-data/
+/runtime-data/
+/data/
+/exports/
+/backups/
+/logs/
+/artifacts/
+/imports/
+/uploads/
+/tmp/
+/temp/
+/.eval-results/
+/eval-results/
+/test-output/
 
-# Databases and journals
+# Databases and journals anywhere in the checkout
 *.db
 *.db-journal
 *.db-shm
@@ -50,23 +57,12 @@ artifacts/
 *.sqlite-shm
 *.sqlite-wal
 
-# User documents / temporary imports
-imports/
-uploads/
-tmp/
-temp/
-
 # IDE / OS files
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 Desktop.ini
-
-# Test/eval outputs that may contain user content
-.eval-results/
-eval-results/
-test-output/
 
 # Local backup archives
 *.backup
