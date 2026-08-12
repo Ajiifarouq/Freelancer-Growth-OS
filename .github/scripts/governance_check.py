@@ -162,11 +162,12 @@ def run_self_tests() -> int:
         if errors:
             failures.append(f"self-test expected clean result but failed: {label}: {errors}")
 
+    fake_openai_key = b"sk" + b"-" + (b"a" * 32)
     expect_error(
         ".env.example secret scan",
         lambda errors: check_secret_patterns(
             ROOT / ".env.example",
-            b"OPENAI_API_KEY=sk-abcdefghijklmnopqrstuvwxyz123456\n",
+            b"OPENAI_API_KEY=" + fake_openai_key + b"\n",
             errors,
         ),
     )
